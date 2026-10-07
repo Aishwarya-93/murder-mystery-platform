@@ -1,0 +1,27 @@
+{
+  "name": "murder-mystery-platform",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "concurrently -n \"SERVER,WEB\" -c \"blue,green\" \"npm run dev -w apps/server\" \"npm run dev -w apps/web\"",
+    "dev:server": "npm run dev -w apps/server",
+    "dev:web": "npm run dev -w apps/web",
+    "build": "npm run build -w apps/server && npm run build -w apps/web",
+    "start": "node apps/server/dist/index.js",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "hash-answers": "node scripts/hash-answers.mjs",
+    "verify-content": "node scripts/verify-content.mjs",
+    "generate-assets": "node scripts/gen-logs.mjs && node scripts/build-sql-level.mjs && node scripts/hash-answers.mjs"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2",
+    "tsx": "^4.19.3",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.7"
+  }
+}

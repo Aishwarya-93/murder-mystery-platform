@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 360" width="500" height="360">
+  <defs>
+    <linearGradient id="wood" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4A2E1B" />
+      <stop offset="50%" stop-color="#321C0E" />
+      <stop offset="100%" stop-color="#24140A" />
+    </linearGradient>
+    <linearGradient id="brass" x1="0%" y1="0%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#D4AF37" />
+      <stop offset="50%" stop-color="#AA820A" />
+      <stop offset="100%" stop-color="#735500" />
+    </linearGradient>
+    <radialGradient id="cylinder" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFDF73" />
+      <stop offset="70%" stop-color="#B8860B" />
+      <stop offset="100%" stop-color="#594300" />
+    </radialGradient>
+  </defs>
+
+  <!-- Shadow -->
+  <ellipse cx="250" cy="330" rx="210" ry="25" fill="#0D0907" opacity="0.6"/>
+
+  <!-- Main Wooden Case -->
+  <rect x="70" y="90" width="360" height="200" rx="8" fill="url(#wood)" stroke="#170F08" stroke-width="4"/>
+  <rect x="85" y="105" width="330" height="170" rx="4" fill="none" stroke="url(#brass)" stroke-width="2" stroke-dasharray="8,4"/>
+
+  <!-- Inlaid Rosewood Trim -->
+  <rect x="95" y="115" width="310" height="150" fill="#2A160A" stroke="#170F08" stroke-width="2"/>
+
+  <!-- Music Movement Mechanism Chamber -->
+  <rect x="130" y="140" width="240" height="100" rx="4" fill="#18110D" stroke="#3A2518" stroke-width="2"/>
+  
+  <!-- Comb (Tines) -->
+  <rect x="150" y="150" width="50" height="80" fill="#6E727A" stroke="#484B50" stroke-width="1"/>
+  <!-- Tine lines -->
+  <path d="M150 156 L200 156 M150 164 L200 164 M150 172 L200 172 M150 180 L200 180 M150 188 L200 188 M150 196 L200 196 M150 204 L200 204 M150 212 L200 212 M150 220 L200 220" stroke="#9EA3AC" stroke-width="1.5"/>
+
+  <!-- Pinned Cylinder (Barrel) -->
+  <rect x="220" y="155" width="120" height="70" rx="35" fill="url(#cylinder)" stroke="#806000" stroke-width="2"/>
+  <circle cx="240" cy="170" r="1.5" fill="#2E1C00"/>
+  <circle cx="260" cy="180" r="1.5" fill="#2E1C00"/>
+  <circle cx="280" cy="165" r="1.5" fill="#2E1C00"/>
+  <circle cx="300" cy="190" r="1.5" fill="#2E1C00"/>
+  <circle cx="250" cy="200" r="1.5" fill="#2E1C00"/>
+  <circle cx="290" cy="210" r="1.5" fill="#2E1C00"/>
+  <circle cx="270" cy="195" r="1.5" fill="#2E1C00"/>
+
+  <!-- Brass Gears & Winding Key -->
+  <circle cx="355" cy="190" r="18" fill="url(#brass)" stroke="#594300" stroke-width="2"/>
+  <path d="M355 170 L355 210 M335 190 L375 190" stroke="#3D2B00" stroke-width="2"/>
+
+  <!-- Ornate Brass Corner Brackets -->
+  <path d="M70 90 L100 90 L70 120 Z" fill="url(#brass)"/>
+  <path d="M430 90 L400 90 L430 120 Z" fill="url(#brass)"/>
+  <path d="M70 290 L100 290 L70 260 Z" fill="url(#brass)"/>
+  <path d="M430 290 L400 290 L430 260 Z" fill="url(#brass)"/>
+
+  <!-- Engraved Brass Plaque -->
+  <rect x="180" y="255" width="140" height="24" rx="2" fill="url(#brass)" stroke="#543C00" stroke-width="1"/>
+  <text x="250" y="271" font-family="'Courier New', monospace" font-size="10" font-weight="bold" fill="#291A00" text-anchor="middle" letter-spacing="1">MIRA • 2023</text>
+
+  <!-- Concealed False Bottom Latch Indicator -->
+  <rect x="220" y="295" width="60" height="8" rx="2" fill="#5A3A22" stroke="url(#brass)" stroke-width="1"/>
+  <line x1="250" y1="297" x2="250" y2="301" stroke="#FFDF73" stroke-width="2"/>
+  <text x="250" y="320" font-family="'Courier New', monospace" font-size="9" fill="#9A6A32" text-anchor="middle" letter-spacing="1">FALSE BASE COMPARTMENT</text>
+</svg>

@@ -1,0 +1,16 @@
+{
+  "id": 8,
+  "title": "The Garage Panel",
+  "type": "physical_kit",
+  "tool": "KitStation",
+  "estimated_minutes": 20,
+  "soft_cap_minutes": 30,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Hardware Relay Inspection",
+      "instruction": "Connect and inspect the physical relay logic on your assigned hardware kit station to decipher the panel register value."
+    }
+  ]
+}

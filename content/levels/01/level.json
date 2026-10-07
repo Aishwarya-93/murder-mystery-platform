@@ -1,0 +1,16 @@
+{
+  "id": 1,
+  "title": "The Stopped Clock",
+  "type": "log_forensics",
+  "tool": "LogViewer",
+  "estimated_minutes": 15,
+  "soft_cap_minutes": 22,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Time of Death Analysis",
+      "instruction": "Determine the start of the true medical examiner window of death (4-digit 24-hour UK time, e.g. 2145)."
+    }
+  ]
+}

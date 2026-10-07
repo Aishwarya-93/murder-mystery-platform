@@ -1,0 +1,16 @@
+{
+  "id": 7,
+  "title": "The Perfect Alibi",
+  "type": "geolocation",
+  "tool": "PhotoViewer",
+  "estimated_minutes": 20,
+  "soft_cap_minutes": 30,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Alibi Geolocation Identification",
+      "instruction": "Identify the true geographical location where Adrian's alibi photograph was captured (enter the town/landmark name or latitude,longitude coordinates)."
+    }
+  ]
+}

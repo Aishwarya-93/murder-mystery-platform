@@ -1,0 +1,16 @@
+{
+  "id": 5,
+  "title": "Contradictions",
+  "type": "evidence_matching",
+  "tool": "MatchBoard",
+  "estimated_minutes": 20,
+  "soft_cap_minutes": 30,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Cross-Examine Statements",
+      "instruction": "Match each person's statement with the piece of evidence that directly contradicts it (or select No Contradiction). Enter the resulting 4-digit contradiction code."
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "victim": {
+    "first": "Elias",
+    "last": "Vane",
+    "full": "Dr. Elias Vane",
+    "role": "Consultant Psychologist"
+  },
+  "killer": {
+    "first": "Adrian",
+    "last": "Cross",
+    "full": "Adrian Cross",
+    "alias": "Adrian Marsh",
+    "role": "Research Assistant"
+  },
+  "accomplice": {
+    "first": "Rowan",
+    "last": "Hale",
+    "full": "Detective Rowan Hale",
+    "badge": "4417",
+    "patient_code": "P-0912",
+    "role": "Lead Investigator"
+  },
+  "mira": {
+    "first": "Mira",
+    "last": "Vale",
+    "full": "Mira Vale",
+    "role": "Former Patient",
+    "patient_code": "P-0101"
+  },
+  "julian": {
+    "first": "Julian",
+    "last": "Marsh",
+    "full": "Julian Marsh",
+    "mother": "Helen Marsh"
+  },
+  "lena": {
+    "first": "Lena",
+    "last": "Vane",
+    "full": "Lena Vane",
+    "role": "Wife",
+    "device": "LENA_IPAD"
+  },
+  "clara": {
+    "first": "Clara",
+    "last": "Vane",
+    "full": "Clara Vane",
+    "role": "Sister"
+  },
+  "daniel": {
+    "first": "Daniel",
+    "last": "Reed",
+    "full": "Daniel Reed",
+    "role": "Former Patient"
+  },
+  "noah": {
+    "first": "Noah",
+    "last": "Mercer",
+    "full": "Noah Mercer",
+    "role": "Journalist"
+  },
+  "place": {
+    "house_area": "Hampstead, North London",
+    "house_address": "14 Keats Grove, Hampstead, London NW3 2RR",
+    "claimed": "Southend-on-Sea seafront"
+  },
+  "geo": {
+    "town": "Whitby",
+    "country": "United Kingdom",
+    "claimed_place": "Southend-on-Sea seafront",
+    "place_display": "West Cliff, Whitby, England"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "id": 4,
+  "title": "The Patient Files",
+  "type": "sql_analysis",
+  "tool": "SqlConsole",
+  "estimated_minutes": 20,
+  "soft_cap_minutes": 30,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Database Query Audit",
+      "instruction": "Query the patient clinical records database. Identify the device that deleted a record on the night of the murder, and the redacted patient code edited by Dr. Vane in the week following Julian's death (format: DEVICE-CODE)."
+    }
+  ]
+}

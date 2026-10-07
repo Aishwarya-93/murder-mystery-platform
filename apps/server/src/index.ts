@@ -1,0 +1,84 @@
+import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import rateLimit from 'express-rate-limit';
+import path from 'node:path';
+import fs from 'node:fs';
+
+import { PORT } from './config.js';
+import { initDatabase } from './db.js';
+import authRoutes from './routes/auth.js';
+import levelRoutes from './routes/levels.js';
+import notebookRoutes from './routes/notebook.js';
+import theoryRoutes from './routes/theory.js';
+import leaderboardRoutes from './routes/leaderboard.js';
+import adminRoutes from './routes/admin.js';
+
+const app = express();
+const rootDir = path.resolve(process.cwd());
+
+// Security Headers with Helmet
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "'wasm-unsafe-eval'"],
+        styleSrc: ["'self'", "'unsafe-inline'"],
+        fontSrc: ["'self'", 'data:'],
+        imgSrc: ["'self'", 'data:', 'blob:'],
+        connectSrc: ["'self'"],
+        mediaSrc: ["'self'", 'data:', 'blob:']
+      }
+    },
+    crossOriginEmbedderPolicy: false
+  })
+);
+
+app.use(cors({ origin: true, credentials: true }));
+app.use(cookieParser());
+app.use(express.json({ limit: '1mb' }));
+app.use(express.urlencoded({ extended: true }));
+
+// Rate limiting on sensitive endpoints
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 30,
+  message: { error: 'Too many authentication attempts. Please try again later.' }
+});
+
+app.use('/api/auth/login', loginLimiter);
+app.use('/api/admin/login', loginLimiter);
+
+// API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/levels', levelRoutes);
+app.use('/api/notebook', notebookRoutes);
+app.use('/api/theory', theoryRoutes);
+app.use('/api/leaderboard', leaderboardRoutes);
+app.use('/api/admin', adminRoutes);
+
+// Serve frontend build if exists
+const webDistPath = path.resolve(rootDir, 'apps/web/dist');
+if (fs.existsSync(webDistPath)) {
+  app.use(express.static(webDistPath));
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(webDistPath, 'index.html'));
+  });
+}
+
+// Global error handler
+app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error('Unhandled server error:', err);
+  res.status(500).json({ error: 'Internal server error occurred.' });
+});
+
+// Start server
+initDatabase();
+
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`Investigation server running at http://localhost:${PORT}`);
+});
+
+export default app;

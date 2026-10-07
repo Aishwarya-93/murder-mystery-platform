@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  murder-mystery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: murder-mystery-server
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - ADMIN_PASSWORD=hampstead1986
+      - ANSWER_SECRET=MURDER_MYSTERY_1986_SECRET_KEY
+      - SESSION_SECRET=INVESTIGATION_COOKIE_SECRET_1986
+    volumes:
+      - ./apps/server/data:/app/apps/server/data
+      - ./content/assets-private:/app/content/assets-private

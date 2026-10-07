@@ -1,0 +1,14 @@
+node_modules/
+dist/
+build/
+.env
+*.local
+answers.private.json
+**/answers.private.json
+*.db
+*.db-wal
+*.db-shm
+.DS_Store
+Thumbs.db
+playwright-report/
+test-results/

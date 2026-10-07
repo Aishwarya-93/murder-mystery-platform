@@ -1,0 +1,16 @@
+{
+  "id": 10,
+  "title": "The Accomplice",
+  "type": "club_osint",
+  "tool": "FlagForm",
+  "estimated_minutes": 25,
+  "soft_cap_minutes": 38,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Identify Insider Liaison",
+      "instruction": "Uncover the identity of the police insider behind Liaison 4417 and submit the final verification flag."
+    }
+  ]
+}

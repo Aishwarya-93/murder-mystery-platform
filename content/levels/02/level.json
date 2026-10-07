@@ -1,0 +1,16 @@
+{
+  "id": 2,
+  "title": "Recording Seven",
+  "type": "morse",
+  "tool": "MorsePlayer",
+  "estimated_minutes": 15,
+  "soft_cap_minutes": 22,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Decode Chair Taps",
+      "instruction": "Listen to the rhythmic chair taps in Recording Seven and decode the hidden message."
+    }
+  ]
+}

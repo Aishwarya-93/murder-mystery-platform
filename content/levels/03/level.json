@@ -1,0 +1,21 @@
+{
+  "id": 3,
+  "title": "The Old Case",
+  "type": "fiction_osint",
+  "tool": "DocViewer",
+  "estimated_minutes": 25,
+  "soft_cap_minutes": 38,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Archive Security Gate",
+      "instruction": "Unlock the restricted police dossier using the year of premiere and the antagonistic husband's surname from the referenced theatrical play."
+    },
+    {
+      "index": 1,
+      "name": "Case Discrepancy Analysis",
+      "instruction": "Examine Julian Marsh's official 2023 police dossier and phone records. Enter the minutes between estimated TOD and Julian's call, followed by the officer badge number (format: MM-BADGE)."
+    }
+  ]
+}

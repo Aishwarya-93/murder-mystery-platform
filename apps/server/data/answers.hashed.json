@@ -1,0 +1,190 @@
+{
+  "1": {
+    "level": 1,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "33f0d496080138abf704f6cafbc18bc2adfc79c5bcc4b4a67507d0d07039667f"
+        ],
+        "nudges": {
+          "2243": "Check whether you corrected for panel clock skew.",
+          "2320": "Automated cloud backup syncs are not human activity."
+        }
+      }
+    ]
+  },
+  "2": {
+    "level": 2,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "0ad0eeb99fd9ed96b0e2ebad6bf26b3bc369c73b18748df43f3b63de2ff54ed4",
+          "941b0ba5e8fc9fb24e2c886058ff8c268a78537d51d82c90bbb06ec0a9d23fd4",
+          "d95dae6184eb811b8fd2f3b9b4f5f30a4509f01bd735843c4c27fddaaa89c9f1"
+        ],
+        "nudges": {
+          "NOT ME": "You decoded the first part! Complete the entire tapped message."
+        }
+      }
+    ]
+  },
+  "3": {
+    "level": 3,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "2230668c8a2920f1541181c79511b0d758b96b3e8903bb77e9f6517deea1fc34",
+          "9499ac7c2d846c9c8edb2e7cb7883b1c2f8d4c9d7da27b719cbeb34218e493c8",
+          "e29f0f033ac6d6664a5673f7bd5e526eae1d29cb9fed69c16167db62f4f13f3d",
+          "6dce9f3e5d22741e4656d82ea597b3a9ed6a7631304f5f562dc4d4c419d2a82e",
+          "ea1aad5a74e07744bf389b923f98b2596c368f660a31d7e3d6d1a9822b4fae2d"
+        ]
+      },
+      {
+        "stage": 1,
+        "validHashes": [
+          "d3bad708a053e0d1f9cad032048d847e95c8808c90f9ecef71c06bf7967a8b49",
+          "681d06a2cf6fe74ae1f241252c99f651b4574ffe096127f5a2cb58e8fa9388c6",
+          "790dc79dd3fc46dac669f7c0f4d8788503bdd22b200f94cf03a6753cc93b93bf"
+        ]
+      }
+    ]
+  },
+  "4": {
+    "level": 4,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "d2cfc650b3a94539f64b8377050ad7f92373d00f4d90dac984ce0c9f9d32de77",
+          "272a78dd41f09cf393c363b858b363d9d55c1fbe7cf21884e26b9335071dde8e",
+          "f4274caea7e10d83d0632eced5d588241efbe5f7a2f8bb1407d96a82aa53d4b2",
+          "46e59a52c5aef712eb94e6b7cfe58bbba476ce7748fa4fec6a027c05c7e2a915",
+          "42fad757522872756a4df395f4b9df239aa381017030113e4c2f7cc25c5aefdb"
+        ]
+      }
+    ]
+  },
+  "5": {
+    "level": 5,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "e9c4a86c72d2acd09b7e18c4981b7d8b5527c8628fb0978f5da47156f322485b",
+          "de8fb31a9902d67017a9bcb5de4bd59f42b8eadb382cbb7feb9ed70d4782b5f2",
+          "76af7db0b27e3da7dbec7c45a394f5f39f0875d4f06a633b6b3dd329b96978b2",
+          "120c766ffba02c1cca253614ef69a17b9cd65d5ff28ab6dabd184e18913dab03"
+        ]
+      }
+    ]
+  },
+  "6": {
+    "level": 6,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "44a7b0f5861203a7a6b5232da3d4c4f21dfbac1f9126963681e21fa618867667",
+          "627bddd16c673e85a97d1a7d4944af2217234dcb684ceabbe6a5687cc27f1025",
+          "b83d2b3ecd857e5482a0489cea2103b1f70de085728bb364efb8332f80b95395",
+          "2f3bd8d338e2347a72c99415661ed9d3ddef3317418b73b86a49c2c599bb18bd"
+        ]
+      }
+    ]
+  },
+  "7": {
+    "level": 7,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "58800e471e9d800a50a2ed88e096781a90a4326273f9650446b709adc9bcdd2a",
+          "900c7af3da7914f531a91466fca45a71e57e17f67f3195cf90f6cf334e9be475",
+          "1bde6c826156e90e1bba2bdff593c5a9fd1271f59ed9d03c2d0f4e9a35620ed1",
+          "31032446447eabfc0203314e00137acde1069c819f425cc35402197cd3ad80e2",
+          "de7bcbe392033ef1dd76d49201473acf1ff67ca1a0c773eb5be49ab65a88f23a",
+          "2557d5979b6a99fab661ef4c58828c5f2df002aeb70efa1171e027054c595f40",
+          "adcd133ac09c1afdce26f7c470911356a24064cf3a9bba49d17ed64c0ee06885"
+        ]
+      }
+    ]
+  },
+  "8": {
+    "level": 8,
+    "isKitBased": true,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "c0e246d2649c9bcef66db3483b085512189bd75a118fb5b5e58097f8cceceeb1"
+        ]
+      }
+    ],
+    "defaultKits": {
+      "1": "5d8b0eabf93f7a183839f8b1d3f2fc51d98d575e154c9efb525b54d585ab5ca8",
+      "2": "c0e246d2649c9bcef66db3483b085512189bd75a118fb5b5e58097f8cceceeb1",
+      "3": "3581f88754404e87c6fd3a70a026730adb30959c4071ec0be8577f82584ee3af",
+      "4": "217b3ceb672c43b839be798b97ba298d9e9e6cda7d49c4eeb2d07a95e95612af",
+      "5": "572c13e539feca4c7b62db76dcaee2cd32e64376d1c02542cfe0ce339382aba2"
+    }
+  },
+  "9": {
+    "level": 9,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "471055852d8ec2f1c9d7f05f37bc755724663678a107504f1e1739bf23919968",
+          "8340fa965c730d8e93cfb28d60b5a8b2293cf33bbcfed51115de3d2a855c2af0",
+          "798c4b22e496c4f1c9925cfa7e768cdbd168a011c8a07d0206d1d5ae6df2fde6",
+          "b68fffaa4dbfa841cffb92c1120537a574720686085825d8d9c825c0df688736"
+        ],
+        "blanks": {
+          "python": [
+            "60",
+            "+",
+            "%"
+          ],
+          "java": [
+            "60",
+            "+",
+            "%"
+          ],
+          "cpp": [
+            "60",
+            "+",
+            "%"
+          ]
+        }
+      }
+    ]
+  },
+  "10": {
+    "level": 10,
+    "isKitBased": false,
+    "stages": [
+      {
+        "stage": 0,
+        "validHashes": [
+          "df10e0d4105f48a4b645e0593e1a3c8055b7540db1124089bc19cc4b68b977d7",
+          "562d0bc1b8eba1274410915ce19bdd164fb8d79fc55295f555ab2894b33fbfc2",
+          "0d43fd354c3d9c5649433ed139e36d6201fcbd1aa9140c0808bbc758578a5090",
+          "4570d29ae6c30090923efef959fc78017882ec41ab02a4f813060c6e190ec30a",
+          "cddabd40fdaefb8100d4068ccd6eafcf8d135056d4906c922b1d16e797574a7c"
+        ]
+      }
+    ]
+  }
+}

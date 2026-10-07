@@ -1,0 +1,103 @@
+@import "@fontsource/special-elite";
+@import "@fontsource/source-serif-4";
+@import "@fontsource/ibm-plex-mono";
+@import "@fontsource/reenie-beanie";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --ink: #211A14;
+  --tape: #3A2B20;
+  --manila: #CDBB91;
+  --label: #E9DEC2;
+  --redact: #17120E;
+  --signal: #9A6A32;
+  --alarm: #8C332B;
+  --ok: #536447;
+  --dim: #8F8475;
+}
+
+body {
+  background-color: var(--ink);
+  color: var(--label);
+  font-family: 'Source Serif 4', Georgia, serif;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
+}
+
+/* Custom Paper Texture styling */
+.paper-sheet {
+  background-color: var(--manila);
+  color: var(--ink);
+  box-shadow: 2px 4px 12px rgba(13, 9, 6, 0.45);
+  border: 1px solid rgba(58, 43, 32, 0.2);
+  position: relative;
+}
+
+/* Redaction wipe animation */
+@keyframes redactWipe {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0%;
+  }
+}
+
+.redaction-bar {
+  background-color: var(--redact);
+  display: inline-block;
+  height: 1.1em;
+  vertical-align: middle;
+  border-radius: 2px;
+}
+
+.animate-redact-wipe {
+  animation: redactWipe 1.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-redact-wipe {
+    animation: none !important;
+    width: 0% !important;
+  }
+}
+
+/* Physical stamps */
+.stamp {
+  font-family: 'Special Elite', monospace;
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  border-width: 2px;
+  border-style: solid;
+  transform: rotate(-2deg);
+  user-select: none;
+}
+
+.stamp-open {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.stamp-closed {
+  color: var(--ok);
+  border-color: var(--ok);
+}
+
+.stamp-sealed {
+  color: var(--dim);
+  border-color: var(--dim);
+  opacity: 0.7;
+}
+
+.stamp-skipped {
+  color: var(--alarm);
+  border-color: var(--alarm);
+}

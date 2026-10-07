@@ -1,0 +1,16 @@
+{
+  "id": 9,
+  "title": "The Locked Room",
+  "type": "code_debugging",
+  "tool": "CodeFill",
+  "estimated_minutes": 20,
+  "soft_cap_minutes": 30,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Audit Reconstruction Script",
+      "instruction": "Repair the forensic restoration script by selecting the correct operators for the three code blanks, then enter the restored console output (format: HHMM-SOURCE)."
+    }
+  ]
+}

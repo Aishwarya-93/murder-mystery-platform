@@ -1,0 +1,16 @@
+{
+  "id": 6,
+  "title": "Mira's Silence",
+  "type": "diary_reconstruction",
+  "tool": "DiaryTable",
+  "estimated_minutes": 20,
+  "soft_cap_minutes": 30,
+  "hint_count": 3,
+  "stages": [
+    {
+      "index": 0,
+      "name": "Chronological Diary Reordering",
+      "instruction": "Reconstruct the chronological timeline of Mira's scrambled handwritten diary pages to restore the truth."
+    }
+  ]
+}

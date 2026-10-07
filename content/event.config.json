@@ -1,0 +1,31 @@
+{
+  "event": {
+    "name": "Murder Mystery",
+    "case_number": "CASE-1986-2310",
+    "target_teams": 60,
+    "duration_minutes": 210,
+    "default_soft_caps": {
+      "1": 22,
+      "2": 22,
+      "3": 38,
+      "4": 30,
+      "5": 30,
+      "6": 30,
+      "7": 30,
+      "8": 30,
+      "9": 30,
+      "10": 38
+    }
+  },
+  "theme": {
+    "ink": "#211A14",
+    "tape": "#3A2B20",
+    "manila": "#CDBB91",
+    "label": "#E9DEC2",
+    "redact": "#17120E",
+    "signal": "#9A6A32",
+    "alarm": "#8C332B",
+    "ok": "#536447",
+    "dim": "#8F8475"
+  }
+}

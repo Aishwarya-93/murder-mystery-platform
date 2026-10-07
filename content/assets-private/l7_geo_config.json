@@ -1,0 +1,23 @@
+{
+  "place_display": "West Cliff, Whitby, England",
+  "town": "Whitby",
+  "country": "United Kingdom",
+  "claimed_place": "Southend-on-Sea seafront",
+  "accepted_names": [
+    "whitby",
+    "whitby england",
+    "whitby north yorkshire",
+    "west cliff whitby",
+    "whalebone arch",
+    "west cliff",
+    "whitby abbey"
+  ],
+  "center": {
+    "lat": 54.4897,
+    "lng": -0.6173
+  },
+  "radius_m": 1500,
+  "attribution": "Photo: Evidence archive (reposted 22:21)",
+  "reveal_text": "Adrian's alibi photo is a recycled old photo from the Marsh family's hometown. The memorial registry names Adrian as Julian's brother.",
+  "registry_text": "In memory of Julian Marsh. Placed by his mother Helen and his brother Adrian. West Cliff, Whitby, England."
+}
