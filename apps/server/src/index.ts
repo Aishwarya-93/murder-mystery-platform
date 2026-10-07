@@ -59,11 +59,24 @@ app.use('/api/theory', theoryRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/admin', adminRoutes);
 
-// Serve frontend build if exists
+// Serve frontend build and public assets if they exist
 const webDistPath = path.resolve(rootDir, 'apps/web/dist');
+const webPublicPath = path.resolve(rootDir, 'apps/web/public');
+
 if (fs.existsSync(webDistPath)) {
   app.use(express.static(webDistPath));
-  app.get('*', (_req, res) => {
+}
+if (fs.existsSync(webPublicPath)) {
+  app.use(express.static(webPublicPath));
+}
+
+// SPA fallback for HTML5 history API navigation
+if (fs.existsSync(webDistPath)) {
+  app.get('*', (req, res) => {
+    // If request has a file extension or is an API route, return 404 rather than index.html
+    if (req.path.startsWith('/api') || path.extname(req.path)) {
+      return res.status(404).type('text/plain').send('Not found');
+    }
     res.sendFile(path.join(webDistPath, 'index.html'));
   });
 }
