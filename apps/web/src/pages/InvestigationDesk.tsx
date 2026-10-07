@@ -31,23 +31,23 @@ export const InvestigationDesk: React.FC = () => {
   }, [navigate]);
 
   return (
-    <div className="min-h-screen bg-ink text-label flex flex-col overflow-hidden">
-      {/* Top Bar */}
+    <div className="min-h-screen desk-surface text-label flex flex-col overflow-hidden select-none">
+      {/* Top Chronometer & Case Status Bar */}
       <Header />
 
-      {/* Main Investigation Desk Area */}
-      <div className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
-        {/* Left: 10 Stamped Case Files */}
+      {/* Main 1980s Investigation Desk: Left Manila Folders, Center Active Dossier, Right Corkboard Drawer */}
+      <main className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+        {/* Left: 10 Stacked Manila Case Folders */}
         <CaseBoard />
 
-        {/* Center: Current Investigation Workspace */}
+        {/* Center: Current Physical Case File & Working Desk Surface */}
         <LevelWorkspace />
 
-        {/* Right: Drawer (Evidence Board, Notebook, Hints, Leaderboard) */}
+        {/* Right: Evidence Corkboard, Notebook, Hints, Incident Log */}
         <RightDrawer />
-      </div>
+      </main>
 
-      {/* Overlays */}
+      {/* Overlays & Evidence Modals */}
       <ClueCardModal />
       <FinalTheoryModal />
       <ToastContainer />

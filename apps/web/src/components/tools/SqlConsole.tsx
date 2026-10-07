@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../../store/gameStore.js';
 import initSqlJs, { Database } from 'sql.js';
-import { Play, Database as DbIcon, History, AlertCircle, Table, Check } from 'lucide-react';
+import { Play, Database as DbIcon, History, AlertCircle, Table, Terminal, Monitor, HardDrive, ShieldAlert } from 'lucide-react';
 
 export const SqlConsole: React.FC = () => {
   const { submitAnswer } = useGameStore();
@@ -92,7 +92,7 @@ export const SqlConsole: React.FC = () => {
       upper.includes('INSERT') ||
       upper.includes('DELETE')
     ) {
-      setQueryError('Security Restriction: Read-only query environment. Data modification statements are rejected.');
+      setQueryError('SECURITY VIOLATION: Read-only investigation terminal. Data alteration commands are prohibited.');
       return;
     }
 
@@ -141,40 +141,62 @@ export const SqlConsole: React.FC = () => {
 
   if (loadingDb) {
     return (
-      <div className="bg-tape p-8 rounded border border-signal/30 text-center font-mono text-xs text-label space-y-2">
-        <DbIcon className="w-6 h-6 text-signal mx-auto animate-spin" />
-        <p>Mounting client SQL WASM engine & loading encrypted patient archive...</p>
+      <div className="bg-[#171412] p-8 rounded-lg border-2 border-[#5c4631] text-center font-mono text-xs text-[#c9a777] space-y-3">
+        <HardDrive className="w-8 h-8 text-amber-500 mx-auto animate-bounce" />
+        <p className="tracking-widest uppercase">MOUNTING FORENSIC SQL DISK ARCHIVE...</p>
+        <p className="text-[10px] text-zinc-500">Decoupling local SQLite WASM container // St. Jude's Clinical System</p>
       </div>
     );
   }
 
   if (loadError) {
     return (
-      <div className="bg-alarm/20 p-4 rounded border border-alarm/50 text-xs font-serif text-label flex items-start gap-2">
-        <AlertCircle className="w-4 h-4 text-alarm shrink-0 mt-0.5" />
+      <div className="bg-red-950/70 p-5 rounded-lg border-2 border-red-800 text-xs font-serif text-[#f4ece0] flex items-start gap-3">
+        <AlertCircle className="w-5 h-5 text-red-500 shrink-0 mt-0.5" />
         <div>
-          <strong>Database Archive Error:</strong> {loadError}
+          <strong className="font-typewriter uppercase tracking-wider block text-red-400 mb-1">
+            Database Archive Extraction Error
+          </strong>
+          {loadError}
         </div>
       </div>
     );
   }
 
   return (
-    <div className="space-y-4">
-      {/* Schema Browser & Quick Queries */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs font-mono">
+    <div className="space-y-5">
+      {/* Patient Database Jacket Header */}
+      <div className="paper-sheet p-4 rounded-lg border-2 border-amber-900/40 shadow-sm flex flex-wrap items-center justify-between gap-2">
+        <div>
+          <div className="flex items-center gap-2">
+            <span className="font-typewriter font-bold text-xs sm:text-sm uppercase tracking-wider text-zinc-950">
+              ST. JUDE'S PSYCHIATRIC CONSULTANCY // DR. ELIAS VANE PATIENT DATABASE
+            </span>
+          </div>
+          <span className="text-[11px] font-mono text-zinc-700">
+            CONFIDENTIAL MEDICAL RECORDS ARCHIVE • SERVER BACKUP RECOVERED 2026-10-23
+          </span>
+        </div>
+        <span className="stamp stamp-open text-[10px]">SUBPOENAED EVIDENCE</span>
+      </div>
+
+      {/* Schema Browser Cards styled as Archival Index Records */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-2.5 text-xs font-mono">
         <div
           onClick={() => {
             setQuery('SELECT * FROM patients LIMIT 20;');
             runQuery('SELECT * FROM patients LIMIT 20;');
           }}
-          className="p-2 rounded bg-tape/80 hover:bg-tape border border-signal/20 cursor-pointer transition-colors"
+          className="p-3 rounded-lg bg-[#241e19] hover:bg-[#2e2620] border border-[#5c4631] cursor-pointer transition-all shadow hover:border-amber-500/60 group"
         >
-          <div className="font-typewriter font-bold text-signal flex items-center gap-1.5">
-            <Table className="w-3.5 h-3.5" />
-            patients
+          <div className="font-typewriter font-bold text-amber-400 flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <Table className="w-3.5 h-3.5 text-amber-500" />
+              patients
+            </span>
+            <span className="text-[10px] text-zinc-500 group-hover:text-amber-300">TABLE 01</span>
           </div>
-          <div className="text-[11px] text-dim truncate">patient_code, display_name</div>
+          <div className="text-[11px] text-zinc-400 truncate mt-1">patient_code, display_name</div>
         </div>
 
         <div
@@ -182,13 +204,16 @@ export const SqlConsole: React.FC = () => {
             setQuery('SELECT * FROM records LIMIT 20;');
             runQuery('SELECT * FROM records LIMIT 20;');
           }}
-          className="p-2 rounded bg-tape/80 hover:bg-tape border border-signal/20 cursor-pointer transition-colors"
+          className="p-3 rounded-lg bg-[#241e19] hover:bg-[#2e2620] border border-[#5c4631] cursor-pointer transition-all shadow hover:border-amber-500/60 group"
         >
-          <div className="font-typewriter font-bold text-signal flex items-center gap-1.5">
-            <Table className="w-3.5 h-3.5" />
-            records
+          <div className="font-typewriter font-bold text-amber-400 flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <Table className="w-3.5 h-3.5 text-amber-500" />
+              records
+            </span>
+            <span className="text-[10px] text-zinc-500 group-hover:text-amber-300">TABLE 02</span>
           </div>
-          <div className="text-[11px] text-dim truncate">record_id, patient_code, session_date, recording_ref, last_edited_at, edited_by</div>
+          <div className="text-[11px] text-zinc-400 truncate mt-1">record_id, patient_code, session_date...</div>
         </div>
 
         <div
@@ -196,38 +221,49 @@ export const SqlConsole: React.FC = () => {
             setQuery('SELECT * FROM access_log WHERE action = \'DELETE\' LIMIT 20;');
             runQuery('SELECT * FROM access_log WHERE action = \'DELETE\' LIMIT 20;');
           }}
-          className="p-2 rounded bg-tape/80 hover:bg-tape border border-signal/20 cursor-pointer transition-colors"
+          className="p-3 rounded-lg bg-[#241e19] hover:bg-[#2e2620] border border-[#5c4631] cursor-pointer transition-all shadow hover:border-amber-500/60 group"
         >
-          <div className="font-typewriter font-bold text-signal flex items-center gap-1.5">
-            <Table className="w-3.5 h-3.5" />
-            access_log
+          <div className="font-typewriter font-bold text-amber-400 flex items-center justify-between">
+            <span className="flex items-center gap-1.5">
+              <Table className="w-3.5 h-3.5 text-amber-500" />
+              access_log
+            </span>
+            <span className="text-[10px] text-zinc-500 group-hover:text-amber-300">TABLE 03</span>
           </div>
-          <div className="text-[11px] text-dim truncate">log_id, user_id, device, action, target_record, ts</div>
+          <div className="text-[11px] text-zinc-400 truncate mt-1">log_id, user_id, device, action, ts</div>
         </div>
       </div>
 
-      {/* SQL Editor */}
-      <div className="space-y-1.5">
-        <div className="flex items-center justify-between text-xs">
-          <span className="font-typewriter font-bold text-label flex items-center gap-1.5">
-            <DbIcon className="w-3.5 h-3.5 text-signal" />
-            SQL AUDIT WORKSPACE (READ-ONLY)
-          </span>
-          <span className="text-[11px] text-dim font-mono">Press Ctrl+Enter to Execute</span>
+      {/* 1980s Terminal CRT Console Frame */}
+      <div className="crt-terminal rounded-lg border-4 border-[#3a3024] shadow-[0_12px_35px_rgba(0,0,0,0.8)] overflow-hidden">
+        {/* Terminal Header */}
+        <div className="bg-[#12100d] px-4 py-2 border-b border-[#3a3024] flex items-center justify-between text-xs font-mono">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.9)] animate-pulse" />
+            <span className="text-emerald-400 font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <Terminal className="w-3.5 h-3.5" />
+              VT-100 FORENSIC TERMINAL // SQL CONSOLE
+            </span>
+          </div>
+          <span className="text-[11px] text-emerald-500/70 hidden sm:inline">Ctrl+Enter to Execute Query</span>
         </div>
 
-        <div className="relative rounded border border-signal/40 bg-ink shadow-inner overflow-hidden">
+        {/* Query Input Area */}
+        <div className="relative p-3 bg-[#0a0f0a]">
           <textarea
             rows={3}
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="w-full bg-ink text-label font-mono text-xs p-3 focus:outline-none resize-y leading-relaxed"
-            placeholder="SELECT * FROM patients WHERE ..."
+            className="w-full bg-transparent text-emerald-300 font-mono text-xs sm:text-sm focus:outline-none resize-y leading-relaxed tracking-wide placeholder-emerald-900"
+            placeholder="SELECT * FROM access_log WHERE ..."
           />
-          <div className="bg-tape/60 border-t border-signal/20 px-3 py-1.5 flex items-center justify-between">
+
+          {/* Action Bar */}
+          <div className="pt-2 border-t border-emerald-950/80 flex flex-wrap items-center justify-between gap-2">
             {/* History pills */}
-            <div className="flex items-center gap-1 overflow-x-auto max-w-[70%]">
+            <div className="flex items-center gap-1.5 overflow-x-auto max-w-[65%]">
+              <span className="text-[10px] font-mono text-emerald-700 uppercase">HISTORY:</span>
               {history.map((h, i) => (
                 <button
                   key={i}
@@ -235,7 +271,7 @@ export const SqlConsole: React.FC = () => {
                     setQuery(h);
                     runQuery(h);
                   }}
-                  className="px-1.5 py-0.5 rounded bg-ink/70 text-[10px] text-dim hover:text-label whitespace-nowrap truncate max-w-[140px]"
+                  className="px-2 py-0.5 rounded bg-emerald-950/60 text-[10px] font-mono text-emerald-400 hover:text-emerald-200 border border-emerald-800/40 whitespace-nowrap truncate max-w-[130px]"
                   title={h}
                 >
                   {h}
@@ -245,63 +281,72 @@ export const SqlConsole: React.FC = () => {
 
             <button
               onClick={() => runQuery()}
-              className="px-4 py-1 bg-signal hover:bg-signal/90 text-ink font-serif font-bold text-xs rounded transition-colors flex items-center gap-1 shadow"
+              className="px-4 py-1.5 bg-emerald-700 hover:bg-emerald-600 text-black font-mono font-bold text-xs rounded transition-all flex items-center gap-1.5 shadow-[0_0_10px_rgba(16,185,129,0.5)] active:translate-y-0.5"
             >
               <Play className="w-3 h-3 fill-current" />
-              <span>Run Query</span>
+              <span>RUN QUERY</span>
             </button>
           </div>
         </div>
 
         {queryError && (
-          <div className="p-2 bg-alarm/20 rounded border border-alarm/40 text-xs text-alarm font-mono flex items-center gap-2">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <div className="p-3 bg-red-950/80 border-t border-red-800 text-xs text-red-300 font-mono flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{queryError}</span>
+          </div>
+        )}
+
+        {/* Results Screen */}
+        {results && (
+          <div className="border-t-2 border-[#3a3024] bg-[#060a06] max-h-[280px] overflow-auto">
+            {results.columns.length === 0 ? (
+              <div className="p-4 text-center text-xs text-emerald-600/80 font-mono">
+                Command executed successfully. 0 rows returned in result set.
+              </div>
+            ) : (
+              <table className="w-full text-left text-xs font-mono border-collapse">
+                <thead className="bg-[#0f170f] text-emerald-400 sticky top-0 border-b border-emerald-900/60 z-10 shadow-sm">
+                  <tr>
+                    {results.columns.map((c, i) => (
+                      <th key={i} className="py-2 px-3 whitespace-nowrap text-[11px] font-bold uppercase tracking-wider">
+                        {c}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-emerald-950/60 text-emerald-300/90">
+                  {results.values.map((row, rIdx) => (
+                    <tr key={rIdx} className="hover:bg-emerald-950/30 transition-colors">
+                      {row.map((cell, cIdx) => (
+                        <td key={cIdx} className="py-1.5 px-3 whitespace-nowrap text-[11px]">
+                          {cell === null ? (
+                            <span className="text-zinc-600 italic">NULL</span>
+                          ) : String(cell) === 'REDACTED' ? (
+                            <span className="bg-red-950 text-red-400 border border-red-800 font-bold px-1.5 py-0.5 rounded text-[10px]">
+                              [REDACTED]
+                            </span>
+                          ) : (
+                            String(cell)
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         )}
       </div>
 
-      {/* Result Table */}
-      {results && (
-        <div className="rounded border border-signal/30 bg-ink shadow-inner overflow-x-auto max-h-[260px] overflow-y-auto">
-          {results.columns.length === 0 ? (
-            <div className="p-4 text-center text-xs text-dim font-mono">Query executed. 0 rows returned.</div>
-          ) : (
-            <table className="w-full text-left text-xs font-mono border-collapse">
-              <thead className="bg-tape text-label sticky top-0 border-b border-signal/30 z-10">
-                <tr>
-                  {results.columns.map((c, i) => (
-                    <th key={i} className="py-1.5 px-3 whitespace-nowrap text-[11px] font-bold">
-                      {c}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-dim/20">
-                {results.values.map((row, rIdx) => (
-                  <tr key={rIdx} className="hover:bg-tape/40 transition-colors">
-                    {row.map((cell, cIdx) => (
-                      <td key={cIdx} className="py-1.5 px-3 text-label/90 whitespace-nowrap text-[11px]">
-                        {cell === null ? (
-                          <span className="text-dim/50 italic">NULL</span>
-                        ) : String(cell) === 'REDACTED' ? (
-                          <span className="bg-redact text-label font-bold px-1 rounded text-[10px]">[REDACTED]</span>
-                        ) : (
-                          String(cell)
-                        )}
-                      </td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
+      {/* Investigator Audit Reconciliation Form */}
+      <form onSubmit={handleSubmit} className="p-4 bg-tape/90 rounded-lg border-2 border-signal/40 shadow-desk space-y-4">
+        <div className="flex items-center gap-2 pb-2 border-b border-signal/30 text-xs font-typewriter font-bold text-label">
+          <ShieldAlert className="w-4 h-4 text-signal" />
+          <span>INVESTIGATOR'S AUDIT RECONCILIATION DOSSIER</span>
         </div>
-      )}
 
-      {/* Answer Form */}
-      <form onSubmit={handleSubmit} className="p-3 bg-tape/80 rounded border border-signal/30 space-y-3">
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
           <div>
             <label className="block font-serif text-label font-medium mb-1">
               Q1: Device used to DELETE a record on the murder night (2026-10-23):
@@ -311,7 +356,7 @@ export const SqlConsole: React.FC = () => {
               value={deviceInput}
               onChange={(e) => setDeviceInput(e.target.value)}
               placeholder="e.g. LENA_IPAD"
-              className="w-full bg-ink text-label font-mono px-3 py-1.5 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase"
+              className="w-full bg-ink text-label font-mono px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase shadow-inner"
             />
           </div>
 
@@ -324,27 +369,27 @@ export const SqlConsole: React.FC = () => {
               value={patientInput}
               onChange={(e) => setPatientInput(e.target.value)}
               placeholder="e.g. P-0912"
-              className="w-full bg-ink text-label font-mono px-3 py-1.5 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase"
+              className="w-full bg-ink text-label font-mono px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase shadow-inner"
             />
           </div>
         </div>
 
-        <div className="flex items-center justify-between pt-1">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-1">
           <span className="text-[11px] font-mono text-dim">
-            Combined format: [DEVICE]-[PATIENT_CODE] (e.g. LENA_IPAD-P0912)
+            COMBINED FORMAT: [DEVICE]-[PATIENT_CODE] (e.g. LENA_IPAD-P0912)
           </span>
           <button
             type="submit"
             disabled={submitting || !deviceInput.trim() || !patientInput.trim()}
-            className="px-5 py-1.5 bg-signal hover:bg-signal/90 text-ink font-serif font-bold text-xs rounded transition-colors disabled:opacity-50"
+            className="px-6 py-2 bg-signal hover:bg-signal/90 text-ink font-serif font-bold text-xs rounded transition-colors shadow disabled:opacity-50"
           >
             {submitting ? 'Auditing Database...' : 'Submit Audit Answer'}
           </button>
         </div>
 
         {submitError && (
-          <div className="flex items-center gap-1.5 text-xs text-alarm font-serif mt-1">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs text-alarm font-serif mt-2 p-2 bg-red-950/60 rounded border border-red-800">
+            <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{submitError}</span>
           </div>
         )}

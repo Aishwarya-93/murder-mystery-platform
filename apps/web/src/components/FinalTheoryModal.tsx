@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useGameStore } from '../store/gameStore.js';
 import { api } from '../api/client.js';
-import { FileText, Save, Check, X, ShieldCheck } from 'lucide-react';
+import { FileText, Save, Check, X, ShieldCheck, Scale, Award } from 'lucide-react';
 
 interface TheoryAnswers {
   q1: string;
@@ -61,7 +61,7 @@ export const FinalTheoryModal: React.FC = () => {
     try {
       const res = await api.saveTheory(answers);
       setSubmittedAt(res.submittedAt);
-      addToast('Case Theory dossier successfully saved and logged.', 'info');
+      addToast('Case Theory dossier successfully saved and logged with Chief Inspector.', 'info');
     } catch (err: any) {
       addToast(err.message || 'Failed to save theory', 'alert');
     } finally {
@@ -76,22 +76,30 @@ export const FinalTheoryModal: React.FC = () => {
       role="dialog"
       aria-modal="true"
       aria-labelledby="theory-modal-title"
-      className="fixed inset-0 z-50 bg-ink/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6"
+      className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6"
     >
-      <div className="paper-sheet max-w-4xl w-full max-h-[90vh] flex flex-col rounded text-ink shadow-desk border-2 border-signal relative">
+      <div className="paper-sheet max-w-4xl w-full max-h-[92vh] flex flex-col rounded-xl text-ink shadow-[0_25px_60px_rgba(0,0,0,0.9)] border-4 border-[#5c4631] relative">
+        {/* Top corner paperclip */}
+        <div className="paperclip absolute -top-3 left-10 z-20" />
+
         {/* Modal Header */}
-        <div className="p-4 sm:p-6 border-b border-ink/20 flex items-center justify-between gap-4">
+        <div className="p-5 sm:p-7 border-b-2 border-ink/20 flex flex-wrap items-center justify-between gap-4 bg-manila/80">
           <div className="flex items-center gap-3">
-            <FileText className="w-6 h-6 text-signal" />
+            <Scale className="w-7 h-7 text-red-900" />
             <div>
+              <div className="flex items-center gap-2">
+                <span className="text-[10px] font-mono text-zinc-600 uppercase tracking-widest">
+                  CROWN PROSECUTION SERVICE // SPECIAL HOMICIDE DIVISION
+                </span>
+              </div>
               <h2
                 id="theory-modal-title"
-                className="text-lg sm:text-xl font-typewriter font-bold uppercase text-ink"
+                className="text-lg sm:text-2xl font-typewriter font-bold uppercase text-zinc-950 tracking-wide"
               >
                 FINAL CASE THEORY OF THE PROSECUTION
               </h2>
-              <p className="text-xs font-serif text-ink/75 italic">
-                Formulate your squad’s complete synthesis of the events of 23 October 2026. Editable until event conclusion.
+              <p className="text-xs font-serif text-zinc-800 italic pt-0.5">
+                Formulate your squad’s complete synthesis of the events of 23 October 2026. Official finding for the Chief Inspector.
               </p>
             </div>
           </div>
@@ -99,57 +107,59 @@ export const FinalTheoryModal: React.FC = () => {
           <button
             onClick={() => setTheoryModalOpen(false)}
             aria-label="Close"
-            className="p-1 rounded hover:bg-ink/10 text-ink/70 hover:text-ink transition-colors"
+            className="p-1.5 rounded-full hover:bg-ink/10 text-ink/70 hover:text-ink transition-colors"
           >
             <X className="w-6 h-6" />
           </button>
         </div>
 
         {/* Scrollable Questions List */}
-        <div className="p-4 sm:p-6 flex-1 overflow-y-auto space-y-5">
+        <div className="p-5 sm:p-7 flex-1 overflow-y-auto space-y-6">
           {questions.map((q, idx) => (
-            <div key={q.id} className="space-y-1.5 bg-manila/40 p-3 rounded border border-ink/10">
-              <label className="block text-xs sm:text-sm font-typewriter font-bold text-ink">
-                Question {idx + 1}: {q.text}
+            <div key={q.id} className="space-y-2 bg-manila/40 p-4 rounded-lg border border-ink/15 shadow-sm">
+              <label className="block text-xs sm:text-sm font-typewriter font-bold text-red-950">
+                COUNT #{idx + 1}: {q.text}
               </label>
               <textarea
                 rows={3}
                 value={(answers as any)[q.id] || ''}
                 onChange={(e) => handleChange(q.id, e.target.value)}
-                placeholder="Write your squad's finding and supporting evidence..."
-                className="w-full text-xs sm:text-sm font-serif p-2.5 rounded bg-label/80 text-ink border border-ink/30 focus:border-signal focus:outline-none leading-relaxed resize-y"
+                placeholder="Detail your findings, corroborated exhibits, and forensic conclusions..."
+                className="w-full text-xs sm:text-sm font-serif p-3 rounded bg-[#fdfbf7] text-zinc-950 border border-ink/30 focus:border-red-900 focus:outline-none leading-relaxed resize-y shadow-inner"
               />
             </div>
           ))}
         </div>
 
         {/* Modal Footer */}
-        <div className="p-4 sm:p-6 border-t border-ink/20 flex flex-wrap items-center justify-between gap-3 bg-manila/60">
-          <div className="text-xs font-mono text-ink/70 flex items-center gap-2">
+        <div className="p-4 sm:p-6 border-t-2 border-ink/20 flex flex-wrap items-center justify-between gap-4 bg-manila/90">
+          <div className="text-xs font-mono text-zinc-700 flex items-center gap-2">
             {submittedAt ? (
               <>
-                <ShieldCheck className="w-4 h-4 text-ok" />
-                <span>Last Filed: {new Date(submittedAt).toLocaleTimeString()}</span>
+                <ShieldCheck className="w-4 h-4 text-emerald-700" />
+                <span className="font-bold text-emerald-900">
+                  OFFICIAL INDICTMENT FILED: {new Date(submittedAt).toLocaleTimeString()}
+                </span>
               </>
             ) : (
-              <span>Not yet filed with headquarters</span>
+              <span className="italic">Dossier draft pending filing with Chief Inspector</span>
             )}
           </div>
 
           <div className="flex items-center gap-3">
             <button
               onClick={() => setTheoryModalOpen(false)}
-              className="px-4 py-2 border border-ink/30 hover:bg-ink/10 text-ink font-serif text-xs sm:text-sm rounded transition-colors"
+              className="px-5 py-2.5 border border-ink/30 hover:bg-ink/10 text-zinc-900 font-serif text-xs sm:text-sm rounded-lg transition-colors"
             >
-              Close Window
+              Close Dossier
             </button>
             <button
               onClick={handleSave}
               disabled={saving}
-              className="px-6 py-2 bg-signal hover:bg-signal/90 text-ink font-serif font-bold text-xs sm:text-sm rounded shadow flex items-center gap-2 transition-colors disabled:opacity-50"
+              className="px-7 py-2.5 bg-gradient-to-b from-[#8b261e] to-[#6d1b14] hover:from-[#a02c23] hover:to-[#7c1f17] text-[#fdfbf7] font-serif font-bold text-xs sm:text-sm rounded-lg shadow-md flex items-center gap-2 transition-all disabled:opacity-50 active:translate-y-0.5"
             >
               {saving ? <Save className="w-4 h-4 animate-spin" /> : <Check className="w-4 h-4" />}
-              <span>Save & File Theory</span>
+              <span>Save & Seal Prosecution Theory</span>
             </button>
           </div>
         </div>

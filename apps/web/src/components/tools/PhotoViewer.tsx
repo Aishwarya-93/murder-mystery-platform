@@ -1,6 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { useGameStore } from '../../store/gameStore.js';
-import { ZoomIn, ZoomOut, RotateCcw, Image, AlertCircle, FileText } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Image, AlertCircle, FileText, Crosshair, MapPin, Compass } from 'lucide-react';
 
 export const PhotoViewer: React.FC = () => {
   const { levelDetail, submitAnswer } = useGameStore();
@@ -58,122 +58,146 @@ export const PhotoViewer: React.FC = () => {
   const isSolved = levelDetail?.status === 'SOLVED' || levelDetail?.status === 'SKIPPED';
 
   return (
-    <div className="space-y-4 select-none">
-      {/* Photo Viewer Container */}
-      <div className="bg-tape p-4 rounded border-2 border-signal/40 shadow-desk space-y-3">
-        <div className="flex items-center justify-between pb-2 border-b border-signal/30 text-xs">
-          <span className="font-typewriter font-bold text-label flex items-center gap-2">
-            <Image className="w-4 h-4 text-signal" />
-            ADRIAN'S 22:21 SOCIAL MEDIA ALIBI EVIDENCE PHOTO
-          </span>
-          {/* Zoom controls */}
-          <div className="flex items-center gap-1">
+    <div className="space-y-5 select-none">
+      {/* Archival Photo Mounting Board */}
+      <div className="relative bg-gradient-to-b from-[#211c18] via-[#1a1613] to-[#120f0d] p-5 sm:p-6 rounded-lg border-2 border-[#5c4631] shadow-[0_12px_30px_rgba(0,0,0,0.6)] space-y-4">
+        {/* Top Header Bar */}
+        <div className="flex flex-wrap items-center justify-between pb-3 border-b border-[#5c4631]/60 text-xs gap-2">
+          <div className="flex items-center gap-2">
+            <Compass className="w-4 h-4 text-amber-500" />
+            <span className="font-typewriter font-bold text-[#e6d8c3] tracking-wider text-xs sm:text-sm">
+              ADRIAN CROSS // SOCIAL MEDIA ALIBI EVIDENCE PHOTOGRAPH
+            </span>
+          </div>
+
+          {/* Zoom and Navigation Controls */}
+          <div className="flex items-center gap-1.5 bg-[#0f0d0b] p-1 rounded-md border border-[#5c4631]">
             <button
               onClick={handleZoomIn}
-              className="p-1 rounded bg-ink/70 hover:bg-ink text-label border border-signal/30"
-              title="Zoom in"
+              className="p-1.5 rounded bg-[#241e18] hover:bg-[#382e25] text-amber-400 border border-[#5c4631]/50 transition-colors"
+              title="Zoom in (examine landmarks)"
             >
               <ZoomIn className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={handleZoomOut}
-              className="p-1 rounded bg-ink/70 hover:bg-ink text-label border border-signal/30"
+              className="p-1.5 rounded bg-[#241e18] hover:bg-[#382e25] text-amber-400 border border-[#5c4631]/50 transition-colors"
               title="Zoom out"
             >
               <ZoomOut className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={handleReset}
-              className="p-1 rounded bg-ink/70 hover:bg-ink text-label border border-signal/30"
-              title="Reset view"
+              className="p-1.5 rounded bg-[#241e18] hover:bg-[#382e25] text-amber-400 border border-[#5c4631]/50 transition-colors"
+              title="Reset optical framing"
             >
               <RotateCcw className="w-3.5 h-3.5" />
             </button>
           </div>
         </div>
 
-        {/* Viewport */}
-        <div
-          onMouseDown={handleMouseDown}
-          onMouseMove={handleMouseMove}
-          onMouseUp={handleMouseUp}
-          onMouseLeave={handleMouseUp}
-          onContextMenu={(e) => e.preventDefault()}
-          className="relative bg-ink/90 rounded border border-signal/30 h-72 sm:h-96 overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center"
-        >
-          <img
-            src={photoUrl}
-            alt="Adrian Cross alibi evidence photograph"
-            draggable={false}
-            style={{
-              transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
-              transition: isDragging ? 'none' : 'transform 0.15s ease-out'
-            }}
-            className="max-h-full max-w-full object-contain pointer-events-none select-none"
-          />
+        {/* Darkroom Photo Viewing Frame with Corner Mounts */}
+        <div className="relative bg-[#0d0b09] p-2.5 sm:p-4 rounded-md border-2 border-[#3d2e20] shadow-inner overflow-hidden">
+          {/* Triangular Corner Mounts */}
+          <div className="absolute top-2 left-2 w-4 h-4 border-t-2 border-l-2 border-amber-600/60 z-20 pointer-events-none" />
+          <div className="absolute top-2 right-2 w-4 h-4 border-t-2 border-r-2 border-amber-600/60 z-20 pointer-events-none" />
+          <div className="absolute bottom-2 left-2 w-4 h-4 border-b-2 border-l-2 border-amber-600/60 z-20 pointer-events-none" />
+          <div className="absolute bottom-2 right-2 w-4 h-4 border-b-2 border-r-2 border-amber-600/60 z-20 pointer-events-none" />
 
-          <div className="absolute bottom-2 left-2 px-2 py-0.5 rounded bg-ink/80 text-[10px] font-mono text-dim border border-signal/20 pointer-events-none">
-            Zoom: {Math.round(scale * 100)}% • Click & drag to pan
+          {/* Interactive Viewport */}
+          <div
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
+            onMouseLeave={handleMouseUp}
+            onContextMenu={(e) => e.preventDefault()}
+            className="relative bg-black rounded h-72 sm:h-[420px] overflow-hidden cursor-grab active:cursor-grabbing flex items-center justify-center border border-zinc-800"
+          >
+            {/* Crosshair Overlay Grid */}
+            <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(to_right,#d4af37_1px,transparent_1px),linear-gradient(to_bottom,#d4af37_1px,transparent_1px)] bg-[size:40px_40px]" />
+
+            {/* Target Reticle in Center */}
+            <div className="absolute pointer-events-none opacity-30 text-amber-500 flex items-center justify-center">
+              <Crosshair className="w-16 h-16 stroke-[1]" />
+            </div>
+
+            <img
+              src={photoUrl}
+              alt="Adrian Cross alibi evidence photograph"
+              draggable={false}
+              style={{
+                transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
+                transition: isDragging ? 'none' : 'transform 0.15s ease-out'
+              }}
+              className="max-h-full max-w-full object-contain pointer-events-none select-none filter contrast-105"
+            />
+
+            {/* Magnification readout */}
+            <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded bg-[#120f0d]/90 text-[10px] font-mono text-amber-400 border border-[#5c4631] pointer-events-none shadow">
+              OPTICAL MAGNIFICATION: {Math.round(scale * 100)}% • CLICK & DRAG TO PAN
+            </div>
           </div>
         </div>
 
-        <div className="text-[11px] text-dim font-serif italic text-right">
-          {attribution}
+        <div className="flex flex-wrap items-center justify-between text-[11px] text-[#c9a777]/80 font-mono italic pt-1">
+          <span>FORENSIC EXHIBIT 07 // METADATA: 22:21 BST GEOLOCATION TARGET</span>
+          <span>{attribution}</span>
         </div>
       </div>
 
       {/* Unlocked Memorial Registry (Shown on solve) */}
       {isSolved && (
-        <div className="paper-sheet p-5 rounded border-l-4 border-signal text-ink shadow-paper space-y-2">
-          <div className="flex items-center justify-between pb-1 border-b border-ink/20">
-            <span className="font-typewriter font-bold text-xs flex items-center gap-2">
-              <FileText className="w-4 h-4 text-signal" />
-              MUNICIPAL RECORD: JULIAN MARSH MEMORIAL REGISTRY
+        <div className="paper-sheet p-6 rounded-lg border-l-4 border-ok text-ink shadow-[0_6px_20px_rgba(0,0,0,0.3)] space-y-3">
+          <div className="flex items-center justify-between pb-2 border-b border-ink/20">
+            <span className="font-typewriter font-bold text-xs flex items-center gap-2 text-zinc-950">
+              <FileText className="w-4 h-4 text-ok" />
+              MUNICIPAL REGISTER: JULIAN MARSH MEMORIAL BENCH
             </span>
             <span className="stamp stamp-closed text-[9px]">CROSS-REFERENCED</span>
           </div>
-          <div className="font-serif text-xs leading-relaxed text-ink/90 p-3 bg-manila/50 rounded border border-ink/15">
-            <p className="font-typewriter font-bold text-sm text-center mb-1">
+          <div className="font-serif text-xs leading-relaxed text-zinc-950 p-4 bg-manila/60 rounded border border-ink/20 space-y-2">
+            <p className="font-typewriter font-bold text-base text-center text-red-950">
               IN LOVING MEMORY OF JULIAN MARSH (1996 – 2023)
             </p>
-            <p className="text-center italic text-ink/80">
+            <p className="text-center italic text-zinc-700">
               "Seeking the truth that was taken from him."
             </p>
-            <p className="mt-2 text-center font-bold">
+            <p className="text-center font-bold text-sm text-zinc-900 border-t border-b border-ink/15 py-1.5 my-2">
               Dedicated by his mother, Helen Marsh, and his brother, Adrian Cross (Marsh).
             </p>
-            <p className="text-[11px] text-center font-mono text-ink/70 mt-1">
-              Location: West Cliff, Whitby, England
+            <p className="text-[11px] text-center font-mono text-zinc-600">
+              Official Registry Location: West Cliff, Whitby, North Yorkshire, England (54.4897° N, 0.6173° W)
             </p>
           </div>
         </div>
       )}
 
-      {/* Answer Form */}
-      <form onSubmit={handleSubmit} className="p-3 bg-tape/80 rounded border border-signal/30 space-y-2">
-        <label className="block text-xs font-serif text-label font-medium">
-          Enter the true location or landmark where this photograph was taken (or enter coordinates lat,lng):
+      {/* Geolocation Answer Form */}
+      <form onSubmit={handleSubmit} className="p-4 bg-tape/90 rounded-lg border-2 border-signal/40 shadow-desk space-y-3">
+        <label className="block text-xs font-serif text-label font-medium flex items-center gap-2">
+          <MapPin className="w-4 h-4 text-signal" />
+          <span>Enter the verified location or landmark shown in this alibi photograph (or enter coordinates lat,lng):</span>
         </label>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={answerInput}
             onChange={(e) => setAnswerInput(e.target.value)}
             placeholder="e.g. Whitby, West Cliff Whitby, or 54.4897, -0.6173"
-            className="flex-1 bg-ink text-label font-mono text-xs sm:text-sm px-3 py-1.5 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase"
+            className="flex-1 bg-ink text-label font-mono text-xs sm:text-sm px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase shadow-inner"
           />
           <button
             type="submit"
             disabled={submitting || !answerInput.trim()}
-            className="px-5 py-1.5 bg-signal hover:bg-signal/90 text-ink font-serif font-bold text-xs rounded transition-colors disabled:opacity-50"
+            className="px-6 py-2 bg-signal hover:bg-signal/90 text-ink font-serif font-bold text-xs rounded transition-colors shadow disabled:opacity-50"
           >
             {submitting ? 'Verifying Geo...' : 'Verify Location'}
           </button>
         </div>
 
         {errorMessage && (
-          <div className="flex items-center gap-1.5 text-xs text-alarm font-serif mt-1">
-            <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+          <div className="flex items-center gap-1.5 text-xs text-alarm font-serif mt-1 p-2 bg-red-950/60 rounded border border-red-800">
+            <AlertCircle className="w-4 h-4 shrink-0" />
             <span>{errorMessage}</span>
           </div>
         )}
