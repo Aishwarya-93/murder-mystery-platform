@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useGameStore } from '../store/gameStore.js';
-import { Clock, ShieldAlert, Award, FileText, LogOut, Compass, Search } from 'lucide-react';
+import { Clock, ShieldAlert, Award, FileText, LogOut, Compass, Search, FolderOpen
+ } from 'lucide-react';
+interface HeaderProps {
+  onOpenDossier: () => void;
+}
 
-export const Header: React.FC = () => {
+export const Header: React.FC<HeaderProps> = ({ onOpenDossier }) => {
   const { team, eventClock, setTheoryModalOpen, setActiveDrawerTab, logout, levels } = useGameStore();
 
   const [remainingSeconds, setRemainingSeconds] = useState(0);
@@ -95,7 +99,17 @@ export const Header: React.FC = () => {
             </div>
           </div>
         )}
-
+        {/* Case Dossier Button */}
+        <button
+          onClick={onOpenDossier}
+          className="px-2.5 py-1.5 text-xs font-serif bg-manila/15 hover:bg-manila/25 text-label rounded border border-signal/40 flex items-center gap-1.5 transition-all shadow-sm hover:border-signal"
+          title="Open Case Dossier"
+        >
+          <FolderOpen className="w-3.5 h-3.5 text-signal" />
+          <span className="hidden sm:inline font-typewriter tracking-wide text-[11px]">
+            Case Dossier
+          </span>
+        </button>
         {/* Evidence Corkboard Button */}
         <button
           onClick={() => setActiveDrawerTab('evidence')}

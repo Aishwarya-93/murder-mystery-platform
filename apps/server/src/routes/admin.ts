@@ -3,6 +3,10 @@ import crypto from 'node:crypto';
 import { db, hashPassword, initTeamLevelState } from '../db.js';
 import { requireAdminAuth, signToken, AuthenticatedRequest } from '../auth.js';
 import {
+  getLevelMeta,
+  getLevelStory
+} from '../content-loader.js';
+import {
   getEventClock,
   startEvent,
   pauseEvent,
@@ -338,6 +342,35 @@ router.get('/results/export', requireAdminAuth, (_req: Request, res: Response) =
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', 'attachment; filename="final_results.csv"');
   return res.send(csv);
+});
+
+// Read-only level preview for authenticated administrators
+router.get('/level-preview/:n', requireAdminAuth, (req: Request, res: Response) => {
+  const levelNum = Number.parseInt(req.params.n, 10);
+
+  if (!Number.isInteger(levelNum) || levelNum < 1 || levelNum > 10) {
+    return res.status(404).json({ error: 'Level not found.' });
+  }
+
+  try {
+    const meta = getLevelMeta(levelNum);
+    const story = getLevelStory(levelNum);
+
+    return res.json({
+      id: meta.id,
+      title: meta.title,
+      type: meta.type,
+      tool: meta.tool,
+      estimatedMinutes: meta.estimated_minutes,
+      softCapMinutes: meta.soft_cap_minutes,
+      stages: meta.stages,
+      story,
+      previewOnly: true
+    });
+  } catch (error) {
+    console.error(`Unable to preview level ${levelNum}:`, error);
+    return res.status(500).json({ error: 'Unable to load this level preview.' });
+  }
 });
 
 export default router;

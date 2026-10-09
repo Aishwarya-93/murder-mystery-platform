@@ -77,5 +77,11 @@ export const api = {
     apiRequest('/admin/override', { method: 'POST', body: JSON.stringify({ team_id, level, action, reason }) }),
   getTheories: () => apiRequest('/admin/theories'),
   reviewTheory: (teamId: string, marks: any, reviewedBy?: string) =>
-    apiRequest(`/admin/theories/${teamId}/review`, { method: 'POST', body: JSON.stringify({ marks, reviewedBy }) })
+    apiRequest(`/admin/theories/${teamId}/review`, {
+      method: 'POST',
+      body: JSON.stringify({ marks, reviewedBy })
+    }),
+  getAdminLevelPreview: (level: number) =>
+    apiRequest(`/admin/level-preview/${level}`)
 };
+

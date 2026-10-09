@@ -82,8 +82,8 @@ if (fs.existsSync(webDistPath)) {
 }
 
 // Global error handler
-app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error('Unhandled server error:', err);
+app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error(`Unhandled server error on ${req.method} ${req.originalUrl}:`, err);
   res.status(500).json({ error: 'Internal server error occurred.' });
 });
 
