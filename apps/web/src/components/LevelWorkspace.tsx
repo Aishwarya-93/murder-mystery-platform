@@ -227,7 +227,7 @@ export const LevelWorkspace: React.FC = () => {
             </span>
           </div>
 
-          <div className="font-serif text-xs md:text-sm text-ink leading-relaxed pt-1 max-w-[75ch]">
+          <div className="font-serif text-xs md:text-sm text-ink leading-relaxed pt-1 max-w-4xl">
             <MarkdownText text={story} />
           </div>
         </div>
@@ -321,7 +321,7 @@ export const LevelWorkspace: React.FC = () => {
             </span>
           </div>
 
-          <div className="font-serif text-xs sm:text-sm leading-relaxed text-ink/95 bg-[#f5ecdc] p-4 rounded border border-ink/15 max-w-[75ch]">
+          <div className="font-serif text-xs sm:text-sm leading-relaxed text-ink/95 bg-[#f5ecdc] p-4 rounded border border-ink/15 max-w-4xl">
             <MarkdownText text={reveal} />
           </div>
 
