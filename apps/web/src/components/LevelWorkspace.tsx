@@ -104,7 +104,7 @@ const markdownComponents: Components = {
   ),
 };
 
-const MarkdownText: React.FC<{ text: string }> = ({ text }) => (
+export const MarkdownText: React.FC<{ text: string }> = ({ text }) => (
   <ReactMarkdown remarkPlugins={[remarkGfm]} components={markdownComponents}>
     {text}
   </ReactMarkdown>
