@@ -1,0 +1,116 @@
+{
+  "terms": [
+    {
+      "id": "T01",
+      "level": 1,
+      "term": "AUDIO ARCHIVE: RECORDINGS",
+      "category": "Object",
+      "description": "Cassette vault found behind the rear casing of the grandfather clock in the study."
+    },
+    {
+      "id": "T02",
+      "level": 2,
+      "term": "Recording Seven",
+      "category": "Recording",
+      "description": "Recovered audio dated 14 January 2024. The chair taps decode to NOT ME JULIAN."
+    },
+    {
+      "id": "T03",
+      "level": 2,
+      "term": "P-0101",
+      "category": "Patient code",
+      "description": "Patient code of Mira Vale, the subject of Recording Seven."
+    },
+    {
+      "id": "T04",
+      "level": 3,
+      "term": "Badge 4417",
+      "category": "Badge number",
+      "description": "First officer on scene of Julian Marsh's case. Logged arrival at 22:05, before the 999 call at 22:20, and signed the altered report."
+    },
+    {
+      "id": "T05",
+      "level": 4,
+      "term": "lena.v",
+      "category": "Account",
+      "description": "Database user that logged in on the night of the murder and deleted record R-0003 at 23:52:11."
+    },
+    {
+      "id": "T06",
+      "level": 4,
+      "term": "LENA_IPAD",
+      "category": "Device",
+      "description": "Device used by lena.v to delete record R-0003 at 23:52:11."
+    },
+    {
+      "id": "T07",
+      "level": 4,
+      "term": "R-0003",
+      "category": "Record",
+      "description": "Recording Three. Deleted from the archive database on the night of the murder."
+    },
+    {
+      "id": "T08",
+      "level": 4,
+      "term": "P-0912",
+      "category": "Patient code",
+      "description": "Clinical file with the patient name scrubbed to REDACTED. Edited and locked by Dr. Elias Vane on 2023-12-05."
+    },
+    {
+      "id": "T09",
+      "level": 6,
+      "term": "Music box",
+      "category": "Object",
+      "description": "Inlaid mahogany music box returned by Elias the day before he died. Its false base held an emergency micro-cassette."
+    },
+    {
+      "id": "T10",
+      "level": 7,
+      "term": "West Cliff, Whitby",
+      "category": "Location",
+      "description": "Real location of Adrian's alibi photograph: West Cliff Overlook, Whitby, North Yorkshire."
+    },
+    {
+      "id": "T11",
+      "level": 7,
+      "term": "Book 14, Entry 882",
+      "category": "Record",
+      "description": "North Yorkshire Parish Memorial Registry entry for Julian Marsh."
+    },
+    {
+      "id": "T12",
+      "level": 8,
+      "term": "A. Cross",
+      "category": "Account",
+      "description": "User who entered the service override code at the garage keypad at 21:31:04 BST."
+    },
+    {
+      "id": "T13",
+      "level": 8,
+      "term": "Maintenance window",
+      "category": "System event",
+      "description": "Global maintenance window started at 21:20 under authority credentials. It suppressed the panel alarm during the bypass."
+    },
+    {
+      "id": "T14",
+      "level": 9,
+      "term": "TABLET_API",
+      "category": "Device interface",
+      "description": "Used to trigger the study lock remotely at 23:08 BST."
+    },
+    {
+      "id": "T15",
+      "level": 9,
+      "term": "LIAISON_4417",
+      "category": "Account",
+      "description": "Account scrubbed from the export to protect a police insider."
+    },
+    {
+      "id": "T16",
+      "level": 10,
+      "term": "Recording Nine",
+      "category": "Recording",
+      "description": "Patient code P-0912. Subject: Rowan Hale. Practitioner: Dr. Elias Vane."
+    }
+  ]
+}

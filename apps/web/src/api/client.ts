@@ -1,3 +1,11 @@
+export interface TermEntry {
+  id: string;
+  level: number;
+  term: string;
+  category: string;
+  description: string;
+}
+
 export async function apiRequest<T = any>(
   endpoint: string,
   options: RequestInit = {}
@@ -46,6 +54,7 @@ export const api = {
   getMorseData: () => apiRequest('/levels/2/morse'),
   checkBlanks: (picks: string[]) =>
     apiRequest('/levels/9/check-blanks', { method: 'POST', body: JSON.stringify({ picks }) }),
+  getTerms: () => apiRequest<{ terms: TermEntry[] }>('/terms'),
   getCharacters: () => apiRequest<{ characters: any[]; levelsCompleted: number }>('/characters'),
 
   // Notebook

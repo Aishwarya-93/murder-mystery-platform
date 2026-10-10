@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { api } from '../api/client.js';
+import { api, type TermEntry } from '../api/client.js';
 import {
   TeamInfo,
   LevelSummary,
@@ -52,6 +52,7 @@ interface GameState {
   isPrintModalOpen: boolean;
   activeDrawerTab: 'notebook' | 'hints' | 'leaderboard';
   characters: CharacterProfile[];
+  terms: TermEntry[];
 
   // Actions
   init: () => Promise<void>;
@@ -68,6 +69,7 @@ interface GameState {
   setPrintModalOpen: (open: boolean) => void;
   setActiveDrawerTab: (tab: 'notebook' | 'hints' | 'leaderboard') => void;
   loadCharacters: () => Promise<void>;
+  loadTerms: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -90,6 +92,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   isPrintModalOpen: false,
   activeDrawerTab: 'notebook',
   characters: [],
+  terms: [],
 
   init: async () => {
     try {
@@ -103,6 +106,7 @@ export const useGameStore = create<GameState>((set, get) => ({
 
       if (me.team) {
         await get().loadCharacters();
+        await get().loadTerms();
 
         const levelsRes = await api.getLevels();
         const levelsList: LevelSummary[] = levelsRes.levels;
@@ -185,6 +189,8 @@ export const useGameStore = create<GameState>((set, get) => ({
           // Refresh levels list and current detail
           const levelsRes = await api.getLevels();
           set({ levels: levelsRes.levels });
+          await get().loadCharacters();
+          await get().loadTerms();
           await get().selectLevel(selectedLevelId);
         } else if (res.nextStage) {
           // Advance to next stage in current level
@@ -241,6 +247,8 @@ export const useGameStore = create<GameState>((set, get) => ({
 
         const levelsRes = await api.getLevels();
         set({ levels: levelsRes.levels });
+        await get().loadCharacters();
+        await get().loadTerms();
         await get().selectLevel(selectedLevelId);
         get().addToast(`Level ${selectedLevelId} skipped. Clue card revealed.`, 'warning');
       }
@@ -293,6 +301,14 @@ export const useGameStore = create<GameState>((set, get) => ({
   ) => {
     set({ activeDrawerTab: tab });
   },
+loadTerms: async () => {
+  try {
+    const response = await api.getTerms();
+    set({ terms: response.terms ?? [] });
+  } catch (err) {
+    console.error('Failed to load important terms:', err);
+  }
+},
 loadCharacters: async () => {
   try {
     const response = await api.getCharacters();

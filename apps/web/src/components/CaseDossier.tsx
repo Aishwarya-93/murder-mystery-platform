@@ -8,6 +8,7 @@ import {
   FolderClosed,
   LockKeyhole,
   NotebookPen,
+  Tags,
   Users,
   X,
 } from 'lucide-react';
@@ -17,6 +18,7 @@ import { MarkdownText } from './LevelWorkspace.js';
 type DossierPage =
   | 'overview'
   | 'characters'
+  | 'terms'
   | 'timeline'
   | 'documents'
   | 'evidence'
@@ -25,6 +27,7 @@ type DossierPage =
 const pages: { id: DossierPage; label: string; icon: React.ElementType }[] = [
   { id: 'overview', label: 'Overview', icon: BookOpen },
   { id: 'characters', label: 'Characters', icon: Users },
+  { id: 'terms', label: 'Terms', icon: Tags },
   { id: 'timeline', label: 'Timeline', icon: CalendarDays },
   { id: 'documents', label: 'Documents', icon: FileText },
   { id: 'evidence', label: 'Evidence', icon: FolderClosed },
@@ -46,6 +49,7 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
     levels,
     evidenceBoard,
     characters,
+    terms,
     notebookText,
     setNotebookText,
     saveNotebook,
@@ -197,6 +201,54 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
             )}
           </>
         );
+
+      case 'terms': {
+        const levelTitle = (id: number) =>
+          levels.find((l) => l.id === id)?.title ?? `Case ${id}`;
+        return (
+          <>
+            <p className="dossier-kicker">CASE VOCABULARY</p>
+            <h2 className="dossier-page-title">Important Terms</h2>
+            <div className="dossier-rule" />
+            <p className="dossier-body">
+              Codes, devices, accounts and places you have uncovered so far.
+            </p>
+            {terms.length === 0 ? (
+              <div className="dossier-empty">
+                <LockKeyhole size={20} />
+                <p>
+                  No terms recorded yet. They are added as you complete
+                  investigations.
+                </p>
+              </div>
+            ) : (
+              <dl className="dossier-character-list">
+                {terms.map((t) => (
+                  <article className="dossier-document" key={t.id}>
+                    <Tags size={21} />
+                    <div>
+                      <dt>
+                        <strong className="font-mono">{t.term}</strong>{' '}
+                        <span className="dossier-muted">({t.category})</span>
+                      </dt>
+                      <dd>
+                        <p>{t.description}</p>
+                        <button
+                          type="button"
+                          className="dossier-muted underline"
+                          onClick={() => openEvidence(t.level)}
+                        >
+                          Found in: {levelTitle(t.level)}
+                        </button>
+                      </dd>
+                    </div>
+                  </article>
+                ))}
+              </dl>
+            )}
+          </>
+        );
+      }
 
       case 'timeline':
         return (
