@@ -1,7 +1,7 @@
 {
   "event": {
     "name": "Murder Mystery",
-    "case_number": "CASE-1986-2310",
+    "case_number": "CASE-2026-2310",
     "target_teams": 60,
     "duration_minutes": 210,
     "default_soft_caps": {
