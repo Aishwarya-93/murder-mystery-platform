@@ -50,7 +50,7 @@ interface GameState {
   evidenceBoard: EvidenceCard[];
   isTheoryModalOpen: boolean;
   isPrintModalOpen: boolean;
-  activeDrawerTab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard';
+  activeDrawerTab: 'notebook' | 'hints' | 'leaderboard';
   characters: CharacterProfile[];
 
   // Actions
@@ -66,7 +66,7 @@ interface GameState {
   closeClueModal: () => void;
   setTheoryModalOpen: (open: boolean) => void;
   setPrintModalOpen: (open: boolean) => void;
-  setActiveDrawerTab: (tab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard') => void;
+  setActiveDrawerTab: (tab: 'notebook' | 'hints' | 'leaderboard') => void;
   loadCharacters: () => Promise<void>;
   logout: () => Promise<void>;
 }
@@ -88,7 +88,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   evidenceBoard: [],
   isTheoryModalOpen: false,
   isPrintModalOpen: false,
-  activeDrawerTab: 'evidence',
+  activeDrawerTab: 'notebook',
   characters: [],
 
   init: async () => {
@@ -180,7 +180,6 @@ export const useGameStore = create<GameState>((set, get) => ({
           set((state) => ({
             evidenceBoard: [...state.evidenceBoard.filter(c => c.level !== selectedLevelId), newCard],
             newlyUnlockedClue: newCard,
-            activeDrawerTab: 'evidence'
           }));
 
           // Refresh levels list and current detail
@@ -238,7 +237,6 @@ export const useGameStore = create<GameState>((set, get) => ({
         set((state) => ({
           evidenceBoard: [...state.evidenceBoard.filter(c => c.level !== selectedLevelId), newCard],
           newlyUnlockedClue: newCard,
-          activeDrawerTab: 'evidence'
         }));
 
         const levelsRes = await api.getLevels();
@@ -291,7 +289,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   setActiveDrawerTab: (
-    tab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard'
+    tab: 'notebook' | 'hints' | 'leaderboard'
   ) => {
     set({ activeDrawerTab: tab });
   },
