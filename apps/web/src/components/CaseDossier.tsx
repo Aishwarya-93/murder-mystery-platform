@@ -50,6 +50,7 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
     evidenceBoard,
     characters,
     terms,
+    timeline,
     notebookText,
     setNotebookText,
     saveNotebook,
@@ -257,27 +258,18 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
             <h2 className="dossier-page-title">Timeline</h2>
             <div className="dossier-rule" />
             <p className="dossier-body">
-              The timeline lists completed investigations, not future events.
+              Events established by the evidence you have unlocked, in time order.
             </p>
             <div className="dossier-timeline">
-              {discoveredLevels.length === 0 ? (
+              {timeline.length === 0 ? (
                 <p className="dossier-muted">No discoveries recorded yet.</p>
               ) : (
-                discoveredLevels.map((level) => (
-                  <article className="dossier-timeline-entry" key={level.id}>
+                timeline.map((event) => (
+                  <article className="dossier-timeline-entry" key={event.id}>
                     <span className="dossier-timeline-dot" />
                     <div>
-                      <span className="dossier-timeline-date">
-                        {level.solvedAt
-                          ? new Date(level.solvedAt).toLocaleString()
-                          : 'DISCOVERY RECORDED'}
-                      </span>
-                      <h3>{level.title}</h3>
-                      <p>
-                        {level.status === 'SOLVED'
-                          ? 'Investigation solved.'
-                          : 'Investigation skipped; clue recorded.'}
-                      </p>
+                      <span className="dossier-timeline-date">{event.when}</span>
+                      <p>{event.text}</p>
                     </div>
                   </article>
                 ))
