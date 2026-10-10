@@ -46,6 +46,7 @@ export const api = {
   getMorseData: () => apiRequest('/levels/2/morse'),
   checkBlanks: (picks: string[]) =>
     apiRequest('/levels/9/check-blanks', { method: 'POST', body: JSON.stringify({ picks }) }),
+  getCharacters: () => apiRequest<{ characters: any[]; levelsCompleted: number }>('/characters'),
 
   // Notebook
   getNotebook: () => apiRequest('/notebook'),

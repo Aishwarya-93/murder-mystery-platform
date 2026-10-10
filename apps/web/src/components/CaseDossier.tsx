@@ -44,6 +44,7 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
     levelDetail,
     levels,
     evidenceBoard,
+    characters,
     notebookText,
     setNotebookText,
     saveNotebook,
@@ -89,25 +90,93 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
           </>
         );
 
-      case 'characters':
-        return (
-          <>
-            <p className="dossier-kicker">PERSONS OF INTEREST</p>
-            <h2 className="dossier-page-title">Character Files</h2>
-            <div className="dossier-rule" />
-            <p className="dossier-body">
-              Character files will be recorded here as verified character
-              information becomes available.
-            </p>
-            <div className="dossier-empty">
-              <LockKeyhole size={20} />
-              <p>
-                No separate character records have been indexed yet.
-                Check the discovered documents and evidence for established names.
+        case 'characters':
+          return (
+            <>
+              <p className="dossier-kicker">PERSONS OF INTEREST</p>
+              <h2 className="dossier-page-title">Character Files</h2>
+              <div className="dossier-rule" />
+
+              <p className="dossier-body">
+                Character information verified during the investigation appears here.
               </p>
-            </div>
-          </>
-        );
+
+              {characters.length === 0 ? (
+                <div className="dossier-empty">
+                  <LockKeyhole size={20} />
+                  <p>
+                    No character profiles are available yet. Refresh the dossier
+                    after the character records have loaded.
+                  </p>
+                </div>
+              ) : (
+                <div className="dossier-character-list">
+                  {characters.map((character) => (
+                    <article
+                        className="dossier-document"
+                        key={character.id}
+                    >
+                      <Users size={21} />
+
+                      <div className="min-w-0 flex-1">
+                        <h3>{character.name}</h3>
+                        <p>{character.role}</p>
+
+                        {character.redacted ? (
+                          <p className="dossier-muted">
+                            Further information is classified.
+                          </p>
+                        ) : (
+                          <>
+                            <p>
+                              <strong>Status:</strong> {character.status}
+                            </p>
+                            <p>
+                              <strong>Classification:</strong>{' '}
+                              {character.classification}
+                            </p>
+
+                            {character.knownFacts?.length > 0 && (
+                              <div className="mt-2">
+                                <strong>Known facts</strong>
+                                <ul className="list-disc pl-5">
+                                  {character.knownFacts.map((fact, index) => (
+                                    <li key={index}>{fact}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
+                            {character.timeline?.length > 0 && (
+                              <div className="mt-2">
+                                <strong>Timeline</strong>
+                                <ul className="list-disc pl-5">
+                                  {character.timeline.map((event, index) => (
+                                    <li key={index}>{event}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+
+                            {character.linkedEvidence?.length > 0 && (
+                              <div className="mt-2">
+                                <strong>Linked evidence</strong>
+                                <ul className="list-disc pl-5">
+                                  {character.linkedEvidence.map((item, index) => (
+                                      <li key={index}>{item}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </>
+          );
 
       case 'timeline':
         return (

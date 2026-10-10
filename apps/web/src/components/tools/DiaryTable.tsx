@@ -89,7 +89,7 @@ export const DiaryTable: React.FC = () => {
                   SHEET POSITION #{idx + 1}
                 </span>
                 <span className="text-[11px] font-mono text-zinc-600 font-bold px-1.5 py-0.5 rounded bg-manila/80 border border-ink/10">
-                  {p.label}
+                  DIARY FRAGMENT {['A','B','C','D','E','F'][idx]}
                 </span>
               </div>
 
@@ -104,7 +104,7 @@ export const DiaryTable: React.FC = () => {
               <button
                 onClick={() => moveUp(idx)}
                 disabled={idx === 0 || isSolved}
-                aria-label={`Move ${p.label} up`}
+                aria-label={`Move Diary Fragment ${['A','B','C','D','E','F'][idx]} up`}
                 className="p-2 rounded bg-amber-100 hover:bg-amber-200 text-zinc-900 border border-amber-300 disabled:opacity-30 transition-all shadow-sm active:translate-y-0.5"
                 title="Move earlier in timeline"
               >
@@ -113,7 +113,7 @@ export const DiaryTable: React.FC = () => {
               <button
                 onClick={() => moveDown(idx)}
                 disabled={idx === pages.length - 1 || isSolved}
-                aria-label={`Move ${p.label} down`}
+                aria-label={`Move Diary Fragment ${['A','B','C','D','E','F'][idx]} down`}
                 className="p-2 rounded bg-amber-100 hover:bg-amber-200 text-zinc-900 border border-amber-300 disabled:opacity-30 transition-all shadow-sm active:translate-y-0.5"
                 title="Move later in timeline"
               >
@@ -130,7 +130,7 @@ export const DiaryTable: React.FC = () => {
           <div className="flex items-center gap-2 text-xs">
             <span className="font-typewriter text-label font-bold">RECONSTRUCTED SEQUENCE:</span>
             <span className="font-mono text-signal font-bold tracking-widest bg-ink px-2.5 py-1 rounded border border-signal/30">
-              {pages.map((p) => p.label.slice(-1)).join(' → ')}
+              {pages.map((_, i) => ['A','B','C','D','E','F'][i]).join(' → ')}
             </span>
           </div>
 

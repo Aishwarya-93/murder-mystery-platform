@@ -1,12 +1,25 @@
+
 import React, { useEffect, useRef } from 'react';
 import { useGameStore } from '../store/gameStore.js';
-import { Award, BookOpen, HelpCircle, Trophy, Save, Check, ChevronRight, Pin, FileQuestion } from 'lucide-react';
+import {
+  Award,
+  BookOpen,
+  HelpCircle,
+  Trophy,
+  Save,
+  Check,
+  ChevronRight,
+  Pin,
+  FileQuestion,
+  Users,
+} from 'lucide-react';
 
 export const RightDrawer: React.FC = () => {
   const {
     activeDrawerTab,
     setActiveDrawerTab,
     evidenceBoard,
+    characters,
     notebookText,
     notebookSaved,
     setNotebookText,
@@ -14,26 +27,32 @@ export const RightDrawer: React.FC = () => {
     levelDetail,
     requestHint,
     leaderboard,
-    leaderboardHidden
+    leaderboardHidden,
   } = useGameStore();
 
-  const notebookDebounceRef = useRef<any>(null);
+  const notebookDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null
+  );
 
-  const handleNotebookChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    const val = e.target.value;
-    setNotebookText(val);
+  const handleNotebookChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    setNotebookText(e.target.value);
 
     if (notebookDebounceRef.current) {
       clearTimeout(notebookDebounceRef.current);
     }
+
     notebookDebounceRef.current = setTimeout(() => {
-      saveNotebook();
+      void saveNotebook();
     }, 1000);
   };
 
   useEffect(() => {
     return () => {
-      if (notebookDebounceRef.current) clearTimeout(notebookDebounceRef.current);
+      if (notebookDebounceRef.current) {
+        clearTimeout(notebookDebounceRef.current);
+      }
     };
   }, []);
 
@@ -43,29 +62,40 @@ export const RightDrawer: React.FC = () => {
     return `${m}m ${s}s`;
   };
 
+  const tabClass = (tab: string) =>
+    `flex-1 min-w-[75px] py-2.5 px-2 text-center flex items-center justify-center gap-1.5 transition-all border-b-2 ${
+      activeDrawerTab === tab
+        ? 'border-signal text-signal font-typewriter font-bold bg-[#291b11] shadow-inner'
+        : 'border-transparent text-dim hover:text-label'
+    }`;
+
   return (
     <aside className="w-full lg:w-80 xl:w-96 bg-[#21160e] border-t-2 lg:border-t-0 lg:border-l-2 border-signal/30 flex flex-col shrink-0 h-80 lg:h-auto overflow-hidden shadow-2xl">
-      {/* Tab Navigation Bar with Vintage Tabs */}
+      {/* Tab Navigation */}
       <div className="flex border-b-2 border-signal/30 bg-[#160f0a] text-xs font-serif overflow-x-auto select-none">
         <button
           onClick={() => setActiveDrawerTab('evidence')}
-          className={`flex-1 min-w-[75px] py-2.5 px-2 text-center flex items-center justify-center gap-1.5 transition-all border-b-2 ${
-            activeDrawerTab === 'evidence'
-              ? 'border-signal text-signal font-typewriter font-bold bg-[#291b11] shadow-inner'
-              : 'border-transparent text-dim hover:text-label'
-          }`}
+          className={tabClass('evidence')}
         >
           <Award className="w-3.5 h-3.5" />
-          <span className="text-[11px]">Evidence ({evidenceBoard.length})</span>
+          <span className="text-[11px]">
+            Evidence ({evidenceBoard.length})
+          </span>
+        </button>
+
+        <button
+          onClick={() => setActiveDrawerTab('characters')}
+          className={tabClass('characters')}
+        >
+          <Users className="w-3.5 h-3.5" />
+          <span className="text-[11px]">
+            Characters ({characters.length})
+          </span>
         </button>
 
         <button
           onClick={() => setActiveDrawerTab('notebook')}
-          className={`flex-1 min-w-[75px] py-2.5 px-2 text-center flex items-center justify-center gap-1.5 transition-all border-b-2 ${
-            activeDrawerTab === 'notebook'
-              ? 'border-signal text-signal font-typewriter font-bold bg-[#291b11] shadow-inner'
-              : 'border-transparent text-dim hover:text-label'
-          }`}
+          className={tabClass('notebook')}
         >
           <BookOpen className="w-3.5 h-3.5" />
           <span className="text-[11px]">Logbook</span>
@@ -73,11 +103,7 @@ export const RightDrawer: React.FC = () => {
 
         <button
           onClick={() => setActiveDrawerTab('hints')}
-          className={`flex-1 min-w-[75px] py-2.5 px-2 text-center flex items-center justify-center gap-1.5 transition-all border-b-2 ${
-            activeDrawerTab === 'hints'
-              ? 'border-signal text-signal font-typewriter font-bold bg-[#291b11] shadow-inner'
-              : 'border-transparent text-dim hover:text-label'
-          }`}
+          className={tabClass('hints')}
         >
           <HelpCircle className="w-3.5 h-3.5" />
           <span className="text-[11px]">Intel/Hints</span>
@@ -85,30 +111,26 @@ export const RightDrawer: React.FC = () => {
 
         <button
           onClick={() => setActiveDrawerTab('leaderboard')}
-          className={`flex-1 min-w-[75px] py-2.5 px-2 text-center flex items-center justify-center gap-1.5 transition-all border-b-2 ${
-            activeDrawerTab === 'leaderboard'
-              ? 'border-signal text-signal font-typewriter font-bold bg-[#291b11] shadow-inner'
-              : 'border-transparent text-dim hover:text-label'
-          }`}
+          className={tabClass('leaderboard')}
         >
           <Trophy className="w-3.5 h-3.5" />
           <span className="text-[11px]">Standings</span>
         </button>
       </div>
 
-      {/* Tab Content Body */}
+      {/* Tab Content */}
       <div className="flex-1 overflow-y-auto">
-        {/* 1. EVIDENCE BOARD: REAL DETECTIVE CORKBOARD */}
+        {/* 1. EVIDENCE BOARD */}
         {activeDrawerTab === 'evidence' && (
           <div className="cork-board min-h-full p-4 space-y-4">
-            {/* Header Plaque */}
             <div className="bg-[#1b1108]/90 border border-signal/40 p-2 rounded shadow-inner flex items-center justify-between text-xs">
               <div className="flex items-center gap-2">
                 <Pin className="w-4 h-4 text-alarm" />
                 <span className="font-typewriter font-bold tracking-widest text-signal uppercase text-[11px]">
-                  EVIDENCE CORKBOARD
+                  Evidence Corkboard
                 </span>
               </div>
+
               <span className="text-[10px] font-mono text-[#D6C296] bg-ink/80 px-2 py-0.5 rounded border border-signal/30">
                 {evidenceBoard.length}/10 PINNED
               </span>
@@ -119,47 +141,48 @@ export const RightDrawer: React.FC = () => {
                 <Pin className="w-6 h-6 text-alarm/60 mx-auto" />
                 <p>The incident board is empty.</p>
                 <p className="text-[11px] text-dim">
-                  Solve Case #01 to pin the first photograph and forensic breakthrough to the board.
+                  Solve Case #01 to pin the first photograph and forensic
+                  breakthrough to the board.
                 </p>
               </div>
             ) : (
               <div className="space-y-4 relative">
-                {/* Evidence Cards on Corkboard */}
                 {evidenceBoard.map((card, idx) => {
-                  const rotation = (idx % 3 === 0 ? -1.5 : idx % 3 === 1 ? 1 : -0.5);
+                  const rotation =
+                    idx % 3 === 0 ? -1.5 : idx % 3 === 1 ? 1 : -0.5;
+
                   return (
                     <div
                       key={card.level}
                       style={{ transform: `rotate(${rotation}deg)` }}
                       className="polaroid-frame relative text-ink transition-transform hover:rotate-0 duration-200"
                     >
-                      {/* Red 3D Thumbtack on top center */}
                       <div className="thumbtack" />
 
-                      {/* Small Red String Indicator between cards */}
                       {idx > 0 && (
                         <div className="absolute -top-3 left-3 w-8 h-0.5 bg-alarm/80 -rotate-45 pointer-events-none" />
                       )}
 
-                      {/* Card Content Header */}
                       <div className="flex items-center justify-between pb-1 mb-2 border-b border-ink/20 pt-1">
                         <span className="font-typewriter text-[11px] font-bold text-ink tracking-wider">
-                          EXHIBIT #{String(card.level).padStart(2, '0')}: {card.title}
+                          EXHIBIT #{String(card.level).padStart(2, '0')}:{' '}
+                          {card.title}
                         </span>
+
                         <span className="stamp stamp-closed text-[8px] py-0 px-1 border-ok text-ok">
                           VERIFIED
                         </span>
                       </div>
 
-                      {/* Clue Text */}
                       <div className="text-xs font-serif leading-relaxed text-ink/90 whitespace-pre-wrap">
                         {card.text}
                       </div>
 
-                      {/* Date / Evidence Index Stamp */}
                       <div className="mt-2 pt-1 border-t border-ink/10 flex justify-between items-center text-[9px] font-mono text-ink/60">
                         <span>DISPATCH: 23-OCT-2026</span>
-                        <span className="font-typewriter uppercase">EVID-TAG #{card.level}</span>
+                        <span className="font-typewriter uppercase">
+                          EVID-TAG #{card.level}
+                        </span>
                       </div>
                     </div>
                   );
@@ -169,14 +192,137 @@ export const RightDrawer: React.FC = () => {
           </div>
         )}
 
-        {/* 2. TEAM NOTEBOOK: AUTHENTIC DETECTIVE SPIRAL LOGBOOK */}
+        {/* 2. CHARACTER DOSSIERS */}
+        {activeDrawerTab === 'characters' && (
+          <div className="min-h-full p-4 space-y-4 bg-[#1d130a]">
+            <div className="flex items-center justify-between pb-2 border-b border-signal/30">
+              <div>
+                <h2 className="font-typewriter text-sm font-bold text-signal uppercase tracking-wider">
+                  Character Dossiers
+                </h2>
+                <p className="text-[11px] text-dim font-serif mt-1">
+                  People connected to the investigation
+                </p>
+              </div>
+
+              <span className="text-xs font-mono text-dim">
+                {characters.length} FILES
+              </span>
+            </div>
+
+            {characters.length === 0 ? (
+              <div className="text-center py-10 text-dim text-xs font-serif italic">
+                No character files are currently available.
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {characters.map((character) => (
+                  <article
+                    key={character.id}
+                    className="p-3 rounded border border-signal/25 bg-[#291b11] shadow-inner space-y-3"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div>
+                        <h3 className="font-typewriter text-sm font-bold text-label">
+                          {character.name}
+                        </h3>
+
+                        <p className="text-[11px] text-signal mt-1">
+                          {character.role}
+                        </p>
+                      </div>
+
+                      <span className="text-[9px] font-mono uppercase text-dim border border-signal/20 rounded px-2 py-1">
+                        {character.redacted
+                          ? 'REDACTED'
+                          : character.status}
+                      </span>
+                    </div>
+
+                    {character.redacted ? (
+                      <p className="text-xs text-dim font-serif italic">
+                        Further information is currently classified.
+                      </p>
+                    ) : (
+                      <>
+                        <div>
+                          <p className="text-[10px] uppercase tracking-wider text-dim font-typewriter mb-1">
+                            Classification
+                          </p>
+                          <p className="text-xs text-label font-serif">
+                            {character.classification}
+                          </p>
+                        </div>
+
+                        {character.knownFacts?.length > 0 && (
+                          <div>
+                            <p className="text-[10px] uppercase tracking-wider text-dim font-typewriter mb-1">
+                              Known Facts
+                            </p>
+                            <ul className="list-disc pl-4 space-y-1">
+                              {character.knownFacts.map((fact, index) => (
+                                <li
+                                  key={index}
+                                  className="text-xs text-label/90 font-serif leading-relaxed"
+                                >
+                                  {fact}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {character.timeline?.length > 0 && (
+                          <div>
+                            <p className="text-[10px] uppercase tracking-wider text-dim font-typewriter mb-1">
+                              Timeline
+                            </p>
+                            <ul className="space-y-1">
+                              {character.timeline.map((event, index) => (
+                                <li
+                                  key={index}
+                                  className="text-xs text-label/80 font-serif leading-relaxed border-l border-signal/40 pl-2"
+                                >
+                                  {event}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+
+                        {character.linkedEvidence?.length > 0 && (
+                          <div>
+                            <p className="text-[10px] uppercase tracking-wider text-dim font-typewriter mb-1">
+                              Linked Evidence
+                            </p>
+                            <ul className="list-disc pl-4 space-y-1">
+                              {character.linkedEvidence.map((item, index) => (
+                                <li
+                                  key={index}
+                                  className="text-xs text-signal/90 font-serif"
+                                >
+                                  {item}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </>
+                    )}
+                  </article>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* 3. TEAM NOTEBOOK */}
         {activeDrawerTab === 'notebook' && (
           <div className="h-full bg-[#EAD8B5] text-ink p-4 flex flex-col gap-2 relative shadow-inner">
-            {/* Top Spiral Wire Binding decoration */}
             <div className="flex items-center justify-between pb-2 border-b-2 border-ink/30 text-xs">
               <span className="font-typewriter text-ink font-bold tracking-wider uppercase text-[11px] flex items-center gap-1.5">
                 <BookOpen className="w-3.5 h-3.5 text-signal" />
-                SQUAD FIELD LOGBOOK
+                Squad Field Logbook
               </span>
 
               <span className="flex items-center gap-1 text-[11px] font-mono text-ink/75 bg-ink/10 px-2 py-0.5 rounded">
@@ -195,44 +341,50 @@ export const RightDrawer: React.FC = () => {
             </div>
 
             <p className="text-[11px] text-ink/70 font-serif italic border-l-2 border-alarm pl-2 py-0.5">
-              Confidential investigative notebook. Entries are saved in real-time and shared with your squad.
+              Confidential investigative notebook. Entries are saved in
+              real-time and shared with your squad.
             </p>
 
-            {/* Lined Legal Pad Textarea */}
             <textarea
               value={notebookText}
               onChange={handleNotebookChange}
               placeholder="Record witness contradictions, timeline notes, deciphered codes, and investigator theories here..."
               className="flex-1 w-full bg-[#F5EACB] text-ink font-mono text-xs p-3 rounded border border-ink/30 focus:border-signal focus:outline-none resize-none leading-relaxed shadow-inner"
               style={{
-                backgroundImage: 'repeating-linear-gradient(transparent, transparent 23px, rgba(160, 120, 80, 0.2) 24px)',
-                lineHeight: '24px'
+                backgroundImage:
+                  'repeating-linear-gradient(transparent, transparent 23px, rgba(160, 120, 80, 0.2) 24px)',
+                lineHeight: '24px',
               }}
             />
           </div>
         )}
 
-        {/* 3. HINTS LADDER: SEALED EVIDENCE ENVELOPES */}
+        {/* 4. HINTS LADDER */}
         {activeDrawerTab === 'hints' && (
           <div className="p-4 space-y-3 bg-[#1d130a]">
             <div className="flex items-center justify-between pb-1.5 border-b border-signal/20">
               <span className="font-typewriter text-xs text-signal uppercase tracking-wider font-bold">
                 Classified Case Intel
               </span>
+
               <span className="text-[10px] font-mono text-dim bg-ink px-2 py-0.5 rounded border border-signal/20">
-                {levelDetail?.hintsUsed || 0} of {levelDetail?.totalHints || 3} Unsealed
+                {levelDetail?.hintsUsed || 0} of{' '}
+                {levelDetail?.totalHints || 3} Unsealed
               </span>
             </div>
 
             <p className="text-[11px] text-dim font-serif italic">
-              Opening intelligence tiers incurs no scoring penalty. Telemetry is logged for case documentation only.
+              Opening intelligence tiers incurs no scoring penalty. Telemetry
+              is logged for case documentation only.
             </p>
 
             {levelDetail && (
               <div className="space-y-3">
                 {[1, 2, 3].map((tier) => {
-                  const isRevealed = tier <= (levelDetail.hintsUsed || 0);
-                  const hintText = levelDetail.hintsRevealed?.[tier - 1];
+                  const isRevealed =
+                    tier <= (levelDetail.hintsUsed || 0);
+                  const hintText =
+                    levelDetail.hintsRevealed?.[tier - 1];
 
                   return (
                     <div
@@ -243,12 +395,12 @@ export const RightDrawer: React.FC = () => {
                           : 'bg-ink/70 text-dim border-dim/20'
                       }`}
                     >
-                      {/* Envelope Seal Stamp */}
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="font-typewriter font-bold text-[11px] uppercase tracking-wider flex items-center gap-1.5">
                           <FileQuestion className="w-3.5 h-3.5 text-signal" />
-                          INTEL ENVELOPE &bull; TIER {tier}
+                          INTEL ENVELOPE • TIER {tier}
                         </span>
+
                         <span
                           className={`text-[9px] font-typewriter px-1.5 py-0.5 rounded ${
                             isRevealed
@@ -256,7 +408,9 @@ export const RightDrawer: React.FC = () => {
                               : 'bg-alarm/15 text-alarm border border-alarm/30'
                           }`}
                         >
-                          {isRevealed ? 'SEAL BROKEN' : 'CONFIDENTIAL SEAL'}
+                          {isRevealed
+                            ? 'SEAL BROKEN'
+                            : 'CONFIDENTIAL SEAL'}
                         </span>
                       </div>
 
@@ -266,19 +420,23 @@ export const RightDrawer: React.FC = () => {
                         </div>
                       ) : (
                         <div className="text-dim/60 font-serif italic text-[11px]">
-                          Evidence sealed under seal #{tier}. Click below to break the seal.
+                          Evidence sealed under seal #{tier}. Click below to
+                          break the seal.
                         </div>
                       )}
                     </div>
                   );
                 })}
 
-                {(levelDetail.hintsUsed || 0) < (levelDetail.totalHints || 3) && (
+                {(levelDetail.hintsUsed || 0) <
+                  (levelDetail.totalHints || 3) && (
                   <button
                     onClick={requestHint}
                     className="w-full mt-3 py-2 px-3 bg-signal hover:bg-signal/90 text-ink font-typewriter font-bold text-xs rounded transition-all flex items-center justify-center gap-2 shadow-desk"
                   >
-                    <span>Unseal Intel Tier {(levelDetail.hintsUsed || 0) + 1}</span>
+                    <span>
+                      Unseal Intel Tier {(levelDetail.hintsUsed || 0) + 1}
+                    </span>
                     <ChevronRight className="w-4 h-4" />
                   </button>
                 )}
@@ -287,13 +445,14 @@ export const RightDrawer: React.FC = () => {
           </div>
         )}
 
-        {/* 4. LEADERBOARD: PRECINCT BULLETIN BOARD */}
+        {/* 5. LEADERBOARD */}
         {activeDrawerTab === 'leaderboard' && (
           <div className="p-4 space-y-3 bg-[#1d130a]">
             <div className="flex items-center justify-between pb-1.5 border-b border-signal/20">
               <span className="font-typewriter text-xs text-signal uppercase tracking-wider font-bold">
                 Precinct Squad Standings
               </span>
+
               <span className="text-[10px] font-mono text-dim bg-ink px-2 py-0.5 rounded border border-signal/20">
                 LIVE TELETYPE
               </span>
@@ -301,8 +460,13 @@ export const RightDrawer: React.FC = () => {
 
             {leaderboardHidden ? (
               <div className="text-center py-10 px-4 text-dim text-xs font-serif italic border border-dashed border-alarm/40 rounded bg-alarm/5 space-y-2">
-                <div className="stamp stamp-skipped text-xs">CLASSIFIED UNDER CODE 4417</div>
-                <p>Standings have been officially redacted by Headquarters for the final interrogation phase.</p>
+                <div className="stamp stamp-skipped text-xs">
+                  CLASSIFIED UNDER CODE 4417
+                </div>
+                <p>
+                  Standings have been officially redacted by Headquarters for
+                  the final interrogation phase.
+                </p>
               </div>
             ) : leaderboard.length === 0 ? (
               <div className="text-center py-10 text-dim text-xs font-serif italic">
@@ -325,12 +489,13 @@ export const RightDrawer: React.FC = () => {
                       >
                         {idx + 1}
                       </div>
+
                       <div className="truncate">
                         <div className="font-serif text-label font-bold truncate">
                           {entry.teamName}
                         </div>
                         <div className="text-[10px] text-dim font-mono">
-                          Kit #{entry.kitNo} &bull; Case #{entry.currentLevel}
+                          Kit #{entry.kitNo} • Case #{entry.currentLevel}
                         </div>
                       </div>
                     </div>

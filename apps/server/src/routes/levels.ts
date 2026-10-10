@@ -16,7 +16,7 @@ import { broadcastLeaderboard } from '../sse.js';
 import { LevelStateRow } from '../types.js';
 
 const router = Router();
-const rootDir = path.resolve(process.cwd());
+const rootDir = path.resolve(process.cwd(), '../..');
 
 // GET /api/levels - list of all levels with status
 router.get('/', requireTeamAuth, (req: AuthenticatedRequest, res: Response) => {
@@ -97,6 +97,9 @@ router.get('/:n', requireTeamAuth, (req: AuthenticatedRequest, res: Response) =>
   // Attach tool-specific data
   if (levelNum === 1) {
     const logsPath = path.resolve(rootDir, 'content/assets-private/level1_logs.json');
+    console.log('[Level 1] Working directory:', process.cwd());
+    console.log('[Level 1] Logs path:', logsPath);
+    console.log('[Level 1] File exists:', fs.existsSync(logsPath));
     if (fs.existsSync(logsPath)) {
       payload.logs = JSON.parse(fs.readFileSync(logsPath, 'utf8'));
     }
