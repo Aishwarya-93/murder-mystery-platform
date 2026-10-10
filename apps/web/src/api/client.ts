@@ -1,3 +1,19 @@
+export interface TimelineEvent {
+  id: string;
+  level: number;
+  sort: string;
+  when: string;
+  text: string;
+}
+
+export interface TermEntry {
+  id: string;
+  level: number;
+  term: string;
+  category: string;
+  description: string;
+}
+
 export async function apiRequest<T = any>(
   endpoint: string,
   options: RequestInit = {}
@@ -46,6 +62,8 @@ export const api = {
   getMorseData: () => apiRequest('/levels/2/morse'),
   checkBlanks: (picks: string[]) =>
     apiRequest('/levels/9/check-blanks', { method: 'POST', body: JSON.stringify({ picks }) }),
+  getTimeline: () => apiRequest<{ events: TimelineEvent[] }>('/timeline'),
+  getTerms: () => apiRequest<{ terms: TermEntry[] }>('/terms'),
   getCharacters: () => apiRequest<{ characters: any[]; levelsCompleted: number }>('/characters'),
 
   // Notebook

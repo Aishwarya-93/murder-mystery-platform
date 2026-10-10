@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { api } from '../api/client.js';
+import { api, type TermEntry, type TimelineEvent } from '../api/client.js';
 import {
   TeamInfo,
   LevelSummary,
@@ -50,8 +50,10 @@ interface GameState {
   evidenceBoard: EvidenceCard[];
   isTheoryModalOpen: boolean;
   isPrintModalOpen: boolean;
-  activeDrawerTab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard';
+  activeDrawerTab: 'notebook' | 'hints' | 'leaderboard';
   characters: CharacterProfile[];
+  terms: TermEntry[];
+  timeline: TimelineEvent[];
 
   // Actions
   init: () => Promise<void>;
@@ -66,8 +68,10 @@ interface GameState {
   closeClueModal: () => void;
   setTheoryModalOpen: (open: boolean) => void;
   setPrintModalOpen: (open: boolean) => void;
-  setActiveDrawerTab: (tab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard') => void;
+  setActiveDrawerTab: (tab: 'notebook' | 'hints' | 'leaderboard') => void;
   loadCharacters: () => Promise<void>;
+  loadTerms: () => Promise<void>;
+  loadTimeline: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -88,8 +92,10 @@ export const useGameStore = create<GameState>((set, get) => ({
   evidenceBoard: [],
   isTheoryModalOpen: false,
   isPrintModalOpen: false,
-  activeDrawerTab: 'evidence',
+  activeDrawerTab: 'notebook',
   characters: [],
+  terms: [],
+  timeline: [],
 
   init: async () => {
     try {
@@ -103,6 +109,8 @@ export const useGameStore = create<GameState>((set, get) => ({
 
       if (me.team) {
         await get().loadCharacters();
+        await get().loadTerms();
+        await get().loadTimeline();
 
         const levelsRes = await api.getLevels();
         const levelsList: LevelSummary[] = levelsRes.levels;
@@ -180,12 +188,14 @@ export const useGameStore = create<GameState>((set, get) => ({
           set((state) => ({
             evidenceBoard: [...state.evidenceBoard.filter(c => c.level !== selectedLevelId), newCard],
             newlyUnlockedClue: newCard,
-            activeDrawerTab: 'evidence'
           }));
 
           // Refresh levels list and current detail
           const levelsRes = await api.getLevels();
           set({ levels: levelsRes.levels });
+          await get().loadCharacters();
+          await get().loadTerms();
+        await get().loadTimeline();
           await get().selectLevel(selectedLevelId);
         } else if (res.nextStage) {
           // Advance to next stage in current level
@@ -238,11 +248,13 @@ export const useGameStore = create<GameState>((set, get) => ({
         set((state) => ({
           evidenceBoard: [...state.evidenceBoard.filter(c => c.level !== selectedLevelId), newCard],
           newlyUnlockedClue: newCard,
-          activeDrawerTab: 'evidence'
         }));
 
         const levelsRes = await api.getLevels();
         set({ levels: levelsRes.levels });
+        await get().loadCharacters();
+        await get().loadTerms();
+        await get().loadTimeline();
         await get().selectLevel(selectedLevelId);
         get().addToast(`Level ${selectedLevelId} skipped. Clue card revealed.`, 'warning');
       }
@@ -291,10 +303,26 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   setActiveDrawerTab: (
-    tab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard'
+    tab: 'notebook' | 'hints' | 'leaderboard'
   ) => {
     set({ activeDrawerTab: tab });
   },
+loadTimeline: async () => {
+  try {
+    const response = await api.getTimeline();
+    set({ timeline: response.events ?? [] });
+  } catch (err) {
+    console.error('Failed to load timeline:', err);
+  }
+},
+loadTerms: async () => {
+  try {
+    const response = await api.getTerms();
+    set({ terms: response.terms ?? [] });
+  } catch (err) {
+    console.error('Failed to load important terms:', err);
+  }
+},
 loadCharacters: async () => {
   try {
     const response = await api.getCharacters();

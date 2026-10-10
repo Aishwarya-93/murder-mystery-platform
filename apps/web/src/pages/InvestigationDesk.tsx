@@ -36,14 +36,11 @@ export const InvestigationDesk: React.FC = () => {
       {/* Top Chronometer & Case Status Bar */}
       <Header onOpenDossier={() => setIsDossierOpen(true)} />
 
-      {/* Main investigation desk: current case file in the centre.
-          The old left list of all levels (CaseBoard) has been removed. */}
-      <main className="flex-1 flex flex-col md:flex-row overflow-hidden relative">
-        {/* Center: Current Physical Case File & Working Desk Surface */}
+      {/* Main investigation desk: only the current case file is shown.
+          Evidence, characters and documents live in the Case Dossier;
+          Logbook, Hints and Standings live in the Field Tools drawer. */}
+      <main className="flex-1 flex flex-col overflow-hidden relative">
         <LevelWorkspace />
-
-        {/* Right: still here for now (Hints, Notebook, Standings).
-            Will be converted to a pop-out drawer in the next step. */}
         <RightDrawer />
       </main>
 
