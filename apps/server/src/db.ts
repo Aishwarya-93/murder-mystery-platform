@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import crypto from 'node:crypto';
 import { ANSWER_SECRET } from './config.js';
 
-const dataDir = path.resolve(process.cwd(), 'apps/server/data');
+const dataDir = path.resolve(process.cwd(), 'data');
 fs.mkdirSync(dataDir, { recursive: true });
 const dbPath = path.join(dataDir, 'app.db');
 

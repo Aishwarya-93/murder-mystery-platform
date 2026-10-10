@@ -14,6 +14,7 @@ import notebookRoutes from './routes/notebook.js';
 import theoryRoutes from './routes/theory.js';
 import leaderboardRoutes from './routes/leaderboard.js';
 import adminRoutes from './routes/admin.js';
+import characterRoutes from './routes/characters.js';
 
 const app = express();
 const rootDir = path.resolve(process.cwd());
@@ -58,6 +59,7 @@ app.use('/api/notebook', notebookRoutes);
 app.use('/api/theory', theoryRoutes);
 app.use('/api/leaderboard', leaderboardRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/characters', characterRoutes);
 
 // Serve frontend build and public assets if they exist
 const webDistPath = path.resolve(rootDir, 'apps/web/dist');
@@ -82,8 +84,8 @@ if (fs.existsSync(webDistPath)) {
 }
 
 // Global error handler
-app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
-  console.error('Unhandled server error:', err);
+app.use((err: any, req: express.Request, res: express.Response, _next: express.NextFunction) => {
+  console.error(`Unhandled server error on ${req.method} ${req.originalUrl}:`, err);
   res.status(500).json({ error: 'Internal server error occurred.' });
 });
 

@@ -9,8 +9,7 @@ export const SESSION_SECRET = process.env.SESSION_SECRET || 'INVESTIGATION_COOKI
 export const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'hampstead1986';
 export const PORT = parseInt(process.env.PORT || '3000', 10);
 
-const rootDir = path.resolve(process.cwd());
-
+const rootDir = path.resolve(process.cwd(), '..', '..');
 export function loadEventConfig() {
   const cfgPath = path.resolve(rootDir, 'content/event.config.json');
   return JSON.parse(fs.readFileSync(cfgPath, 'utf8'));

@@ -20,6 +20,19 @@ interface EvidenceCard {
   text: string;
 }
 
+export interface CharacterProfile {
+  id: string;
+  name: string;
+  role: string;
+  classification: string;
+  status: string;
+  knownFacts: string[];
+  timeline: string[];
+  linkedEvidence: string[];
+  redacted: boolean;
+  patientCode?: string;
+}
+
 interface GameState {
   team: TeamInfo | null;
   isAdmin: boolean;
@@ -37,7 +50,8 @@ interface GameState {
   evidenceBoard: EvidenceCard[];
   isTheoryModalOpen: boolean;
   isPrintModalOpen: boolean;
-  activeDrawerTab: 'evidence' | 'notebook' | 'hints' | 'leaderboard';
+  activeDrawerTab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard';
+  characters: CharacterProfile[];
 
   // Actions
   init: () => Promise<void>;
@@ -52,7 +66,8 @@ interface GameState {
   closeClueModal: () => void;
   setTheoryModalOpen: (open: boolean) => void;
   setPrintModalOpen: (open: boolean) => void;
-  setActiveDrawerTab: (tab: 'evidence' | 'notebook' | 'hints' | 'leaderboard') => void;
+  setActiveDrawerTab: (tab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard') => void;
+  loadCharacters: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -74,6 +89,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   isTheoryModalOpen: false,
   isPrintModalOpen: false,
   activeDrawerTab: 'evidence',
+  characters: [],
 
   init: async () => {
     try {
@@ -86,6 +102,8 @@ export const useGameStore = create<GameState>((set, get) => ({
       });
 
       if (me.team) {
+        await get().loadCharacters();
+
         const levelsRes = await api.getLevels();
         const levelsList: LevelSummary[] = levelsRes.levels;
         set({ levels: levelsList });
@@ -272,10 +290,19 @@ export const useGameStore = create<GameState>((set, get) => ({
     set({ isPrintModalOpen: open });
   },
 
-  setActiveDrawerTab: (tab: 'evidence' | 'notebook' | 'hints' | 'leaderboard') => {
+  setActiveDrawerTab: (
+    tab: 'evidence' | 'characters' | 'notebook' | 'hints' | 'leaderboard'
+  ) => {
     set({ activeDrawerTab: tab });
   },
-
+loadCharacters: async () => {
+  try {
+    const response = await api.getCharacters();
+    set({ characters: response.characters ?? [] });
+  } catch (err) {
+    console.error('Failed to load character profiles:', err);
+  }
+},
   logout: async () => {
     await api.logout();
     set({ team: null, isAdmin: false, levelDetail: null, levels: [] });
