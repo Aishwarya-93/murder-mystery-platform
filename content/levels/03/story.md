@@ -7,7 +7,7 @@ In {{victim.full}}'s consultation binder regarding {{mira.full}}, there is a han
 ---
 
 ### Stage 1: The Password Gate
-Enter the year the theatrical play premiered and the husband's surname (e.g. `1938MANNINGHAM` or via separate fields).
+Enter the year the theatrical play premiered and the husband's surname (combined format `[YEAR][SURNAME]` or via separate fields).
 
 ---
 
@@ -21,4 +21,4 @@ Calculate:
 1. The difference in minutes between the official **estimated time of death** on the police report and **Julian's recorded outgoing call** to Dr. Elias Vane.
 2. The **badge number** of the first responding police officer on scene.
 
-Submit format: `[Minutes]-[BadgeNumber]` (e.g. `32-4417`).
+Submit format: `[Minutes]-[BadgeNumber]`.

@@ -13,4 +13,4 @@ The database contains three primary tables:
 1. Which specific device was used to execute a `DELETE` action on a clinical record on the night of {{victim.first}}'s murder (23 October 2026)?
 2. Which patient code—whose identity has been marked `REDACTED`—was modified by `elias` in the week immediately following Julian Marsh's death on 2 December 2023?
 
-Submit your answer in the combined format: `DEVICE-CODE` (e.g. `LENA_IPAD-P0912`), or enter each in its designated field.
+Submit your answer in the combined format: `DEVICE-CODE`, or enter each in its designated field.

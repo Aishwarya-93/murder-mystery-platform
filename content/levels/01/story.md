@@ -18,4 +18,4 @@ You have been handed raw system logs captured from four separate devices operati
 Note: In late October 2026, the United Kingdom operates on British Summer Time (BST = UTC+1). Be alert to clock skew and automated background tasks.
 
 **Your Objective:**
-Identify the start time of the genuine Medical Examiner window of death. Enter the 4-digit 24-hour time (e.g., `2145`).
+Identify the start time of the genuine Medical Examiner window of death. Enter the 4-digit 24-hour time (HHMM).
