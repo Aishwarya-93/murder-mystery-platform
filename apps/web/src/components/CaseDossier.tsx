@@ -6,6 +6,7 @@ import {
   CalendarDays,
   FileText,
   FolderClosed,
+  FolderOpen,
   LockKeyhole,
   NotebookPen,
   Tags,
@@ -54,6 +55,7 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
     notebookText,
     setNotebookText,
     saveNotebook,
+    selectLevel,
   } = useGameStore();
 
   // Escape: close the evidence detail first, then the dossier itself.
@@ -350,14 +352,27 @@ export const CaseDossier: React.FC<CaseDossierProps> = ({ onClose }) => {
               <div className="dossier-body max-w-none mt-3">
                 <MarkdownText text={selected.text} />
               </div>
-              <button
-                type="button"
-                className="dossier-save-button"
-                onClick={() => setSelectedLevel(null)}
-              >
-                <ArrowLeft size={16} />
-                Back to evidence index
-              </button>
+              <div className="flex flex-wrap items-center gap-3 mt-4">
+                <button
+                  type="button"
+                  className="dossier-save-button"
+                  onClick={() => setSelectedLevel(null)}
+                >
+                  <ArrowLeft size={16} />
+                  Back to evidence index
+                </button>
+                <button
+                  type="button"
+                  className="dossier-save-button"
+                  onClick={() => {
+                    void selectLevel(selected.level);
+                    onClose();
+                  }}
+                >
+                  <FolderOpen size={16} />
+                  Examine on Desk
+                </button>
+              </div>
             </>
           );
         }

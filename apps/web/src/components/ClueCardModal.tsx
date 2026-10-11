@@ -1,9 +1,18 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useGameStore } from '../store/gameStore.js';
-import { Award, Check, X } from 'lucide-react';
+import { Award, Check, FolderOpen, ArrowRight, X } from 'lucide-react';
+import { MarkdownText } from './LevelWorkspace.js';
 
 export const ClueCardModal: React.FC = () => {
-  const { newlyUnlockedClue, closeClueModal } = useGameStore();
+  const {
+    newlyUnlockedClue,
+    closeClueModal,
+    setDossierOpen,
+    levels,
+    selectLevel,
+    theoryUnlocked,
+    setTheoryModalOpen,
+  } = useGameStore();
   const [wipingDone, setWipingDone] = useState(false);
 
   useEffect(() => {
@@ -30,6 +39,22 @@ export const ClueCardModal: React.FC = () => {
 
   if (!newlyUnlockedClue) return null;
 
+  const nextOpen = levels.find((l) => l.status === 'OPEN');
+
+  const handleContinue = () => {
+    closeClueModal();
+    if (nextOpen) {
+      void selectLevel(nextOpen.id);
+    } else if (theoryUnlocked) {
+      setTheoryModalOpen(true);
+    }
+  };
+
+  const handleOpenDossier = () => {
+    closeClueModal();
+    setDossierOpen(true);
+  };
+
   return (
     // Backdrop: full-screen, scrollable vertically so tall content is accessible
     <div
@@ -37,7 +62,9 @@ export const ClueCardModal: React.FC = () => {
       aria-modal="true"
       aria-labelledby="clue-modal-title"
       className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start justify-center p-4 overflow-y-auto"
-      onClick={(e) => { if (e.target === e.currentTarget) closeClueModal(); }}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) closeClueModal();
+      }}
     >
       {/* my-auto centres the card when there is spare vertical room */}
       <div className="my-auto w-full max-w-xl min-w-[320px]">
@@ -75,7 +102,7 @@ export const ClueCardModal: React.FC = () => {
             </h2>
 
             {/* Clue Body with Redaction Wipe Reveal */}
-            <div className="relative font-serif text-sm sm:text-base leading-relaxed bg-manila/60 p-5 rounded-lg border border-ink/20 whitespace-pre-wrap min-h-[130px] shadow-inner">
+            <div className="relative font-serif text-sm sm:text-base leading-relaxed bg-manila/60 p-5 rounded-lg border border-ink/20 min-h-[130px] shadow-inner">
               {!wipingDone && (
                 <div
                   className="absolute inset-0 bg-[#120f0d] text-amber-400 font-mono flex items-center justify-center text-xs tracking-widest uppercase overflow-hidden animate-redact-wipe select-none z-10 p-4 text-center rounded-lg border border-amber-900/60"
@@ -85,22 +112,47 @@ export const ClueCardModal: React.FC = () => {
                 </div>
               )}
               <div className="text-zinc-950 font-medium">
-                {newlyUnlockedClue.text}
+                <MarkdownText text={newlyUnlockedClue.text} />
               </div>
             </div>
 
             {/* Footer */}
             <div className="pt-4 border-t border-ink/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <span className="text-xs text-zinc-600 font-mono italic">
-                This exhibit has been permanently pinned to your squad's Evidence Corkboard.
+                This exhibit has been permanently filed into your squad's Case Dossier.
               </span>
-              <button
-                onClick={closeClueModal}
-                className="w-full sm:w-auto px-6 py-2.5 bg-gradient-to-b from-[#8b261e] to-[#6d1b14] hover:from-[#a02c23] hover:to-[#7c1f17] text-[#fdfbf7] font-serif font-bold text-sm rounded-lg shadow-md transition-all flex items-center justify-center gap-2 shrink-0 active:translate-y-0.5"
-              >
-                <Check className="w-4 h-4" />
-                <span>Examine Evidence Board</span>
-              </button>
+              <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+                <button
+                  type="button"
+                  onClick={handleOpenDossier}
+                  className="flex-1 sm:flex-initial px-4 py-2.5 bg-manila/80 hover:bg-manila text-ink font-serif font-bold text-xs rounded-lg border border-ink/30 transition-all flex items-center justify-center gap-1.5 shadow-sm focus:outline-none focus-visible:ring-2 focus-visible:ring-signal"
+                >
+                  <FolderOpen className="w-4 h-4 text-signal" />
+                  <span>Examine in Dossier</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={handleContinue}
+                  className="flex-1 sm:flex-initial px-5 py-2.5 bg-gradient-to-b from-[#8b261e] to-[#6d1b14] hover:from-[#a02c23] hover:to-[#7c1f17] text-[#fdfbf7] font-serif font-bold text-xs rounded-lg shadow-md transition-all flex items-center justify-center gap-1.5 active:translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-signal"
+                >
+                  {nextOpen ? (
+                    <>
+                      <span>Proceed to Case #{String(nextOpen.id).padStart(2, '0')}</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  ) : theoryUnlocked ? (
+                    <>
+                      <span>Prosecution Theory</span>
+                      <ArrowRight className="w-4 h-4" />
+                    </>
+                  ) : (
+                    <>
+                      <Check className="w-4 h-4" />
+                      <span>Continue</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
           </div>
         </div>

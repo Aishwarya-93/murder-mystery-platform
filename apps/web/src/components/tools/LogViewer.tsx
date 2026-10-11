@@ -245,7 +245,7 @@ export const LogViewer: React.FC = () => {
       {/* Answer Form */}
       <form onSubmit={handleSubmit} className="p-4 bg-tape/90 rounded border-2 border-signal/40 space-y-2.5 shadow-desk">
         <label className="block text-xs font-serif text-label font-medium">
-          Enter the start of the Medical Examiner's window of death (4-digit 24-hr UK BST time, e.g. 2145):
+          Enter the start of the Medical Examiner's window of death (4-digit 24-hr UK BST time):
         </label>
         <div className="flex gap-2">
           <input
@@ -253,7 +253,7 @@ export const LogViewer: React.FC = () => {
             maxLength={5}
             value={answerInput}
             onChange={(e) => setAnswerInput(e.target.value)}
-            placeholder="2237"
+            placeholder="Enter 4-digit time (24hr)..."
             className="flex-1 bg-ink text-label font-mono text-sm px-3.5 py-2 rounded border border-signal/50 focus:border-signal focus:outline-none tracking-widest uppercase shadow-inner"
           />
           <button

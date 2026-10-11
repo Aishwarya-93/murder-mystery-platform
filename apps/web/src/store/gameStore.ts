@@ -51,6 +51,7 @@ interface GameState {
   evidenceBoard: EvidenceCard[];
   isTheoryModalOpen: boolean;
   isPrintModalOpen: boolean;
+  isDossierOpen: boolean;
   activeDrawerTab: 'notebook' | 'hints' | 'leaderboard';
   characters: CharacterProfile[];
   terms: TermEntry[];
@@ -69,6 +70,7 @@ interface GameState {
   closeClueModal: () => void;
   setTheoryModalOpen: (open: boolean) => void;
   setPrintModalOpen: (open: boolean) => void;
+  setDossierOpen: (open: boolean) => void;
   setActiveDrawerTab: (tab: 'notebook' | 'hints' | 'leaderboard') => void;
   loadCharacters: () => Promise<void>;
   loadTerms: () => Promise<void>;
@@ -94,6 +96,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   evidenceBoard: [],
   isTheoryModalOpen: false,
   isPrintModalOpen: false,
+  isDossierOpen: false,
   activeDrawerTab: 'notebook',
   characters: [],
   terms: [],
@@ -302,6 +305,10 @@ export const useGameStore = create<GameState>((set, get) => ({
 
   setPrintModalOpen: (open: boolean) => {
     set({ isPrintModalOpen: open });
+  },
+
+  setDossierOpen: (open: boolean) => {
+    set({ isDossierOpen: open });
   },
 
   setActiveDrawerTab: (
