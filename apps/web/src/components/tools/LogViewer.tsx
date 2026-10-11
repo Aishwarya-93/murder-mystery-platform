@@ -253,7 +253,7 @@ export const LogViewer: React.FC = () => {
             maxLength={5}
             value={answerInput}
             onChange={(e) => setAnswerInput(e.target.value)}
-            placeholder="2237"
+            placeholder="Enter 4-digit time (24hr)..."
             className="flex-1 bg-ink text-label font-mono text-sm px-3.5 py-2 rounded border border-signal/50 focus:border-signal focus:outline-none tracking-widest uppercase shadow-inner"
           />
           <button

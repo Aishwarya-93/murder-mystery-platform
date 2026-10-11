@@ -183,7 +183,7 @@ export const PhotoViewer: React.FC = () => {
             type="text"
             value={answerInput}
             onChange={(e) => setAnswerInput(e.target.value)}
-            placeholder="e.g. Whitby, West Cliff Whitby, or 54.4897, -0.6173"
+            placeholder="Enter location name or coordinates..."
             className="flex-1 bg-ink text-label font-mono text-xs sm:text-sm px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase shadow-inner"
           />
           <button

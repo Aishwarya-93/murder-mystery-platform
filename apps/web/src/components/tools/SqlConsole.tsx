@@ -355,7 +355,7 @@ export const SqlConsole: React.FC = () => {
               type="text"
               value={deviceInput}
               onChange={(e) => setDeviceInput(e.target.value)}
-              placeholder="e.g. LENA_IPAD"
+              placeholder="Enter device name..."
               className="w-full bg-ink text-label font-mono px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase shadow-inner"
             />
           </div>
@@ -368,7 +368,7 @@ export const SqlConsole: React.FC = () => {
               type="text"
               value={patientInput}
               onChange={(e) => setPatientInput(e.target.value)}
-              placeholder="e.g. P-0912"
+              placeholder="Enter patient code..."
               className="w-full bg-ink text-label font-mono px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none uppercase shadow-inner"
             />
           </div>

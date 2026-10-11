@@ -431,7 +431,7 @@ export const MorsePlayer: React.FC = () => {
             type="text"
             value={answerInput}
             onChange={(e) => setAnswerInput(e.target.value)}
-            placeholder="NOT ME JULIAN"
+            placeholder="Enter decoded message..."
             className="flex-1 bg-ink text-label font-mono text-sm px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none tracking-widest uppercase shadow-inner"
           />
           <button

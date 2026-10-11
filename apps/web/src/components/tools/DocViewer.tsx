@@ -86,7 +86,7 @@ export const DocViewer: React.FC = () => {
                   maxLength={4}
                   value={gateYear}
                   onChange={(e) => setGateYear(e.target.value)}
-                  placeholder="e.g. 1938"
+                  placeholder="Enter year..."
                   className="w-full bg-[#fdfbf7] text-ink font-mono text-sm px-3.5 py-2 rounded border border-ink/40 focus:border-red-900 focus:outline-none shadow-inner"
                 />
               </div>
@@ -99,7 +99,7 @@ export const DocViewer: React.FC = () => {
                   type="text"
                   value={gateSurname}
                   onChange={(e) => setGateSurname(e.target.value)}
-                  placeholder="e.g. MANNINGHAM"
+                  placeholder="Enter surname..."
                   className="w-full bg-[#fdfbf7] text-ink font-mono text-sm px-3.5 py-2 rounded border border-ink/40 focus:border-red-900 focus:outline-none uppercase shadow-inner"
                 />
               </div>
@@ -107,7 +107,7 @@ export const DocViewer: React.FC = () => {
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-2">
               <span className="text-[11px] font-mono text-ink/70">
-                COMBINED KEY FORMAT: [YEAR][SURNAME] (e.g. 1938MANNINGHAM)
+                COMBINED KEY FORMAT: [YEAR][SURNAME]
               </span>
               <button
                 type="submit"
@@ -355,7 +355,7 @@ export const DocViewer: React.FC = () => {
                   type="text"
                   value={minutesInput}
                   onChange={(e) => setMinutesInput(e.target.value)}
-                  placeholder="32"
+                  placeholder="Enter minutes..."
                   className="w-full bg-ink text-label font-mono px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none shadow-inner"
                 />
               </div>
@@ -368,7 +368,7 @@ export const DocViewer: React.FC = () => {
                   type="text"
                   value={badgeInput}
                   onChange={(e) => setBadgeInput(e.target.value)}
-                  placeholder="4417"
+                  placeholder="Enter badge number..."
                   className="w-full bg-ink text-label font-mono px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none shadow-inner"
                 />
               </div>
@@ -382,14 +382,14 @@ export const DocViewer: React.FC = () => {
                 type="text"
                 value={earlyMinutesInput}
                 onChange={(e) => setEarlyMinutesInput(e.target.value)}
-                placeholder="15"
+                placeholder="Enter minutes..."
                 className="w-32 bg-ink text-label font-mono text-xs px-3 py-1.5 rounded border border-dim/40 focus:border-signal focus:outline-none"
               />
             </div>
 
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pt-1">
               <span className="text-[11px] font-mono text-dim">
-                SUBMISSION FORMAT: [Minutes]-[Badge] (e.g. 32-4417)
+                SUBMISSION FORMAT: [Minutes]-[Badge]
               </span>
               <button
                 type="submit"

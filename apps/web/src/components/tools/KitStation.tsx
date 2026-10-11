@@ -123,7 +123,7 @@ export const KitStation: React.FC = () => {
             type="text"
             value={answerInput}
             onChange={(e) => setAnswerInput(e.target.value)}
-            placeholder="e.g. 67"
+            placeholder="Enter register value..."
             className="flex-1 bg-ink text-label font-mono text-sm px-3.5 py-2 rounded border border-signal/40 focus:border-signal focus:outline-none shadow-inner"
           />
           <button
