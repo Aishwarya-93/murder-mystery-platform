@@ -86,6 +86,10 @@ export function hashAllAnswers(secret = 'MURDER_MYSTERY_1986_SECRET_KEY') {
   }
 
   const outPath = path.join(outDir, 'answers.hashed.json');
+  if (Object.keys(result).length === 0) {
+    console.warn(`No private answers found; preserving existing ${outPath}`);
+    return {};
+  }
   fs.writeFileSync(outPath, JSON.stringify(result, null, 2), 'utf8');
   console.log(`Hashed answers written to ${outPath}`);
   return result;

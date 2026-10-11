@@ -2,7 +2,7 @@ import React from 'react';
 import ReactMarkdown, { type Components } from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { useGameStore } from '../store/gameStore.js';
-import { Clock, FastForward, Award, Shield } from 'lucide-react';
+import { Clock, FastForward, Award, Shield, ArrowRight } from 'lucide-react';
 
 import { LogViewer } from './tools/LogViewer.js';
 import { MorsePlayer } from './tools/MorsePlayer.js';
@@ -111,7 +111,15 @@ export const MarkdownText: React.FC<{ text: string }> = ({ text }) => (
 );
 
 export const LevelWorkspace: React.FC = () => {
-  const { levelDetail, loadingLevel, skipLevel } = useGameStore();
+  const {
+    levelDetail,
+    loadingLevel,
+    skipLevel,
+    levels,
+    selectLevel,
+    setTheoryModalOpen,
+    theoryUnlocked,
+  } = useGameStore();
 
   if (loadingLevel || !levelDetail) {
     return (
@@ -329,6 +337,40 @@ export const LevelWorkspace: React.FC = () => {
             EXHIBIT RECORD ID: CR-2026-{String(id).padStart(2, '0')} &bull;
             PERMANENT POLICE ARCHIVE
           </div>
+
+          {/* Action to proceed to next open case or theory */}
+          {(() => {
+            const nextOpen = levels.find((l) => l.status === 'OPEN');
+            if (nextOpen && nextOpen.id !== id) {
+              return (
+                <div className="flex justify-end pt-2 border-t border-ink/15">
+                  <button
+                    type="button"
+                    onClick={() => selectLevel(nextOpen.id)}
+                    className="px-5 py-2.5 bg-signal hover:bg-signal/90 text-ink font-typewriter font-bold text-xs sm:text-sm rounded shadow-desk flex items-center gap-2 transition-all motion-reduce:transition-none focus:outline-none focus-visible:ring-2 focus-visible:ring-label"
+                  >
+                    <span>Proceed to Case #{String(nextOpen.id).padStart(2, '0')}: {nextOpen.title}</span>
+                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                  </button>
+                </div>
+              );
+            }
+            if (theoryUnlocked) {
+              return (
+                <div className="flex justify-end pt-2 border-t border-ink/15">
+                  <button
+                    type="button"
+                    onClick={() => setTheoryModalOpen(true)}
+                    className="px-5 py-2.5 bg-signal hover:bg-signal/90 text-ink font-typewriter font-bold text-xs sm:text-sm rounded shadow-desk flex items-center gap-2 transition-all motion-reduce:transition-none animate-bounce motion-reduce:animate-none focus:outline-none focus-visible:ring-2 focus-visible:ring-label"
+                  >
+                    <span>All Evidence Secured — Submit Prosecution Theory</span>
+                    <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                  </button>
+                </div>
+              );
+            }
+            return null;
+          })()}
         </div>
       )}
     </main>

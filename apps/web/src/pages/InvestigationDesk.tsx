@@ -11,9 +11,8 @@ import { FinalTheoryModal } from '../components/FinalTheoryModal.js';
 import { ToastContainer } from '../components/ToastContainer.js';
 
 export const InvestigationDesk: React.FC = () => {
-  const { team, init } = useGameStore();
+  const { init, isDossierOpen, setDossierOpen } = useGameStore();
   const navigate = useNavigate();
-  const [isDossierOpen, setIsDossierOpen] = useState(false);
 
   useEffect(() => {
     init();
@@ -34,7 +33,7 @@ export const InvestigationDesk: React.FC = () => {
   return (
     <div className="min-h-screen desk-surface text-label flex flex-col overflow-hidden select-none">
       {/* Top Chronometer & Case Status Bar */}
-      <Header onOpenDossier={() => setIsDossierOpen(true)} />
+      <Header onOpenDossier={() => setDossierOpen(true)} />
 
       {/* Main investigation desk: only the current case file is shown.
           Evidence, characters and documents live in the Case Dossier;
@@ -49,7 +48,7 @@ export const InvestigationDesk: React.FC = () => {
       <FinalTheoryModal />
       <ToastContainer />
       {isDossierOpen && (
-        <CaseDossier onClose={() => setIsDossierOpen(false)} />
+        <CaseDossier onClose={() => setDossierOpen(false)} />
       )}
     </div>
   );

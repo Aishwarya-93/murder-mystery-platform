@@ -5,7 +5,9 @@ import { db } from '../db.js';
 import { requireTeamAuth, AuthenticatedRequest } from '../auth.js';
 
 const router = Router();
-const rootDir = path.resolve(process.cwd(), '..', '..');
+const rootDir = fs.existsSync(path.resolve(process.cwd(), 'content'))
+  ? process.cwd()
+  : path.resolve(process.cwd(), '../..');
 
 interface TermEntry {
   id: string;

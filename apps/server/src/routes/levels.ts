@@ -16,7 +16,9 @@ import { broadcastLeaderboard } from '../sse.js';
 import { LevelStateRow } from '../types.js';
 
 const router = Router();
-const rootDir = path.resolve(process.cwd(), '../..');
+const rootDir = fs.existsSync(path.resolve(process.cwd(), 'content'))
+  ? process.cwd()
+  : path.resolve(process.cwd(), '../..');
 
 // GET /api/levels - list of all levels with status
 router.get('/', requireTeamAuth, (req: AuthenticatedRequest, res: Response) => {
