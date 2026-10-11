@@ -63,7 +63,7 @@ export const FlagForm: React.FC = () => {
         <form onSubmit={handleSubmit} className="p-5 bg-tape/90 rounded-lg border-2 border-signal/40 shadow-desk space-y-3">
           <div className="flex items-center gap-2 text-xs font-serif text-label font-medium">
             <KeyRound className="w-4 h-4 text-signal" />
-            <span>Enter Case Verification Flag (e.g. FLAG&#123;NAME_SURNAME&#125;):</span>
+            <span>Enter Case Verification Flag:</span>
           </div>
           <div className="flex flex-col sm:flex-row gap-2">
             <input

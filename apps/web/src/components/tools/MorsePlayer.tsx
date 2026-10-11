@@ -424,7 +424,7 @@ export const MorsePlayer: React.FC = () => {
       {/* Answer Form */}
       <form onSubmit={handleSubmit} className="p-4 bg-tape/90 rounded border border-signal/40 shadow-desk space-y-3">
         <label className="block text-xs font-serif text-label font-medium">
-          Enter the decoded message tapped by Mira (e.g. JULIAN or NOT ME JULIAN):
+          Enter the decoded message tapped by Mira:
         </label>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
